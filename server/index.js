@@ -12,7 +12,7 @@ import {
 import {
   NODE_ENV, PORT, SERVER_OPEN_SWAGGER,
 } from './configs/server-config';
-// import models from './database/models';
+import models from './database/models';
 
 const port = parseInt(PORT, 10) || 3000;
 const dev = NODE_ENV === 'development';
@@ -52,14 +52,14 @@ app.prepare().then(async () => {
   });
   server.get('*', (req, res) => handle(req, res));
 
-  // models.sequelize
-  //   .authenticate()
-  //   .then(() => {
-  //     logInfo('Connection has been established successfully.');
-  //   })
-  //   .catch(err => {
-  //     logError('Unable to connect to the database:', err);
-  // });
+  models.sequelize
+    .authenticate()
+    .then(() => {
+      logInfo('Connection has been established successfully.');
+    })
+    .catch(err => {
+      logError('Unable to connect to the database:', err);
+  });
 
   server.listen(port, (err) => {
     if (err) throw err;

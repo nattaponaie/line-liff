@@ -1,6 +1,6 @@
 {
-  "name": "boilerplate-frontend-ssr",
-  "description": "Boilerplate for frontend SSR project",
+  "name": "line-liff-challenge",
+  "description": "LINE LIFF App",
   "version": "1.0.0",
   "engines": {
     "node": "10.17.0"

@@ -1,9 +1,9 @@
 version: '3'
 
 services:
-  boilerplate-frontend-ssr:
+  line-liff:
     build: .
-    image: nextjs/boilerplate-frontend-ssr
+    image: line-liff/app
     command: yarn dev
     volumes:
       - "./__mocks__:/usr/src/app/__mocks__"
@@ -15,8 +15,32 @@ services:
       - "./styles:/usr/src/app/styles"
       - "./utils:/usr/src/app/utils"
     environment:
-      NODE_ENV: 'development'
-      PORT: 3000
-      ASSET_PREFIX: ''
+      DATABASE_HOST: "line-liff-postgres"
+      DATABASE_NAME: "line-liff"
+      DATABASE_USERNAME: "api"
+      DATABASE_PASSWORD: "api"
     ports:
       - "3000:3000"
+    depends_on: 
+      - line-liff-postgres
+    networks:
+      - line-liff
+  line-liff-postgres:
+    image: postgres:9.6
+    volumes:
+      - "line-liff-postgres-db:/var/lib/postgresql/data/pgdata"
+    ports:
+      - "5432:5432"
+    environment:
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+      POSTGRES_USER: "api"
+      POSTGRES_PASSWORD: "api"
+      POSTGRES_DB: "line-liff"
+    networks:
+      - line-liff
+volumes:
+  line-liff-postgres-db:
+  line-liff-node_modules:
+networks:
+  line-liff:
+
