@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       field: 'price_id',
     },
+    status: DataTypes.STRING,
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,

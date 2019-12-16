@@ -1,15 +1,18 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('images', {
+    return queryInterface.createTable('users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      data: {
-        type: Sequelize.BLOB('tiny'),
+      firstName: {
+        type: Sequelize.STRING,
+      },
+      lastName: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -22,6 +25,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('images');
+    return queryInterface.dropTable('users');
   },
 };

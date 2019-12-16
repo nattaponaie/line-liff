@@ -1,15 +1,15 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('images', {
+    return queryInterface.createTable('order_transactions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      data: {
-        type: Sequelize.BLOB('tiny'),
+      quantity: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -22,6 +22,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('images');
+    return queryInterface.dropTable('order_transactions');
   },
 };
