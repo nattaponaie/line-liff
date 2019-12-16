@@ -8,7 +8,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "nodemon --exec babel-node --presets @babel/preset-env server/index.js --watch",
-    "build": "next build && babel server/index.js -D -d .next/dist && babel utils/ -D -d .next/utils && cp package.json .next/.",
+    "build": "next build && babel server/ -D -d .next/dist && babel utils/ -D -d .next/utils && cp package.json .next/.",
     "start": "node .next/dist/index.js",
     "test": "jest __tests__ --coverage --forceExit --detectOpenHandles",
     "test:watch": "jest __tests__ --watch --detectOpenHandles",
@@ -59,7 +59,8 @@
     "swagger-jsdoc": "^3.5.0",
     "swagger-ui-express": "^4.1.2",
     "webpack": "^4.35.3",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "pg": "^7.14.0"
   },
   "devDependencies": {
     "babel-eslint": "10.0.1",
