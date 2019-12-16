@@ -34,7 +34,11 @@
           "/public": "./public",
           "/style": "./styles",
           "/utils": "./utils",
-          "/web-config": "./web-config"
+          "/web-config": "./web-config",
+          "/server-config": "./server/configs/server-config",
+          "/api": "./server/api",
+          "/middleware": "./server/api/middleware",
+          "/models": "./server/database/models"
         }
       }
     ]

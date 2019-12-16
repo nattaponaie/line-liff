@@ -1,5 +1,7 @@
 const ErrorPage = () => (
-  <div />
+  <div>
+    Error page not found
+  </div>
 );
 
 ErrorPage.getInitialProps = () => ({

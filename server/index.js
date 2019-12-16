@@ -1,14 +1,15 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import nextjs from 'next';
+import swaggerUi from 'swagger-ui-express';
 
 // import { logInfo } from './utils/logger';
-// import {
-//   defaultApi,supportApis,
-// } from './api';
+import {
+  defaultApi,supportApis,
+} from './api';
 // import models from './database/models';
 import {
-  NODE_ENV, PORT,
+  NODE_ENV, PORT, SERVER_OPEN_SWAGGER,
 } from './configs/server-config';
 
 const port = parseInt(PORT, 10) || 3000;
@@ -29,10 +30,15 @@ app.prepare().then(async () => {
   });
 
   // Register API routes
-  // supportApis.forEach((api) => {
-  //   server.use(`/api/v${api.version}`, api.router);
-  // });
-  // server.use('/api', defaultApi.router);
+  supportApis.forEach((api) => {
+    server.use(`/api/v${api.version}`, api.router);
+    // Setup swagger UI
+    if (SERVER_OPEN_SWAGGER) {
+      server.use(`/api/v${api.version}/docs`, swaggerUi.serve, swaggerUi.setup(defaultApi.apiSpec));
+      // logInfo(`Initialize Swagger UI based on API v${defaultApi.version} specification`, { endpoint: `${server.endpoint.scheme}://${server.endpoint.host}:${server.endpoint.port}/api/v${api.version}/docs` });
+    }
+  });
+  server.use('/api', defaultApi.router);
 
   server.get('static/*', (req, _, next) => {
     req.url = req.originalUrl.replace('/static', 'static');

@@ -1,6 +1,6 @@
 import {
-  Button,
-  Col, Divider, Row,
+  Divider,
+  Row,
 } from 'antd';
 
 import { ASSET_PREFIX } from '/web-config';
