@@ -9,11 +9,11 @@ services:
       - "./__mocks__:/usr/src/app/__mocks__"
       - "./__tests__:/usr/src/app/__tests__"
       - "./components:/usr/src/app/components"
-      - "./contexts:/usr/src/app/contexts"
       - "./pages:/usr/src/app/pages"
       - "./public:/usr/src/app/public"
       - "./styles:/usr/src/app/styles"
       - "./utils:/usr/src/app/utils"
+      - "./server:/usr/src/app/server"
     environment:
       DATABASE_HOST: "line-liff-postgres"
       DATABASE_NAME: "line-liff"
