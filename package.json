@@ -13,7 +13,16 @@
     "test": "jest __tests__ --coverage --forceExit --detectOpenHandles",
     "test:watch": "jest __tests__ --watch --detectOpenHandles",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "db:model:generate": "sequelize model:generate --name",
+    "db:migrate:generate": "sequelize migration:generate --name",
+    "db:migrate": "sequelize db:migrate",
+    "db:migrate:undo": "sequelize db:migrate:undo",
+    "db:seed:generate": "sequelize seed:generate --name",
+    "db:seed": "sequelize db:seed --seed",
+    "db:seed:undo": "sequelize db:seed:undo --seed",
+    "db:seed:undo:all": "sequelize db:seed:undo:all",
+    "db:seed:all": "sequelize db:seed:all"
   },
   "dependencies": {
     "@babel/cli": "^7.7.5",
@@ -33,7 +42,6 @@
     "babel-plugin-module-resolver": "3.1.1",
     "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
     "babel-preset-react": "6.24.1",
-    "babel-register": "^6.26.0",
     "body-parser": "^1.19.0",
     "dotenv": "7.0.0",
     "express": "4.16.4",
@@ -51,6 +59,7 @@
     "node-sass": "4.11.0",
     "nodemon": "1.18.10",
     "null-loader": "^3.0.0",
+    "pg": "^7.14.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -59,8 +68,7 @@
     "swagger-jsdoc": "^3.5.0",
     "swagger-ui-express": "^4.1.2",
     "webpack": "^4.35.3",
-    "winston": "^3.2.1",
-    "pg": "^7.14.0"
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "babel-eslint": "10.0.1",
@@ -76,6 +84,7 @@
     "eslint-plugin-react": "7.11.1",
     "eslint-plugin-react-hooks": "^1.6.1",
     "eslint-plugin-simple-import-sort": "^4.0.0",
-    "jest": "24.1.0"
+    "jest": "24.1.0",
+    "sequelize-cli": "^5.5.1"
   }
 }
