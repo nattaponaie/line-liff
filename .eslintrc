@@ -56,7 +56,7 @@
         "/components": "./components",
         "/contexts": "./contexts",
         "/pages": "./pages",
-        "/static": "./static",
+        "/public": "./public",
         "/style": "./styles",
         "/utils": "./utils",
         "/web-config": "./web-config"

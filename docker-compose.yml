@@ -11,7 +11,7 @@ services:
       - "./components:/usr/src/app/components"
       - "./contexts:/usr/src/app/contexts"
       - "./pages:/usr/src/app/pages"
-      - "./static:/usr/src/app/static"
+      - "./public:/usr/src/app/public"
       - "./styles:/usr/src/app/styles"
       - "./utils:/usr/src/app/utils"
     environment:
