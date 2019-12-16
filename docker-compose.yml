@@ -15,7 +15,7 @@ services:
       - "./utils:/usr/src/app/utils"
       - "./server:/usr/src/app/server"
     environment:
-      DATABASE_HOST: "line-liff-postgres"
+      DATABASE_URL: "line-liff-postgres"
       DATABASE_NAME: "line-liff"
       DATABASE_USERNAME: "api"
       DATABASE_PASSWORD: "api"
