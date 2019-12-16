@@ -3,14 +3,16 @@ import express from 'express';
 import nextjs from 'next';
 import swaggerUi from 'swagger-ui-express';
 
-// import { logInfo } from './utils/logger';
+import {
+  logError, logInfo,
+} from '../utils/logger';
 import {
   defaultApi,supportApis,
 } from './api';
-// import models from './database/models';
 import {
   NODE_ENV, PORT, SERVER_OPEN_SWAGGER,
 } from './configs/server-config';
+// import models from './database/models';
 
 const port = parseInt(PORT, 10) || 3000;
 const dev = NODE_ENV === 'development';
@@ -61,7 +63,7 @@ app.prepare().then(async () => {
 
   server.listen(port, (err) => {
     if (err) throw err;
-    console.log(`> Ready on http://localhost:${port}`);
+    logInfo(`> Ready on http://localhost:${port}`);
   });
 });
 
