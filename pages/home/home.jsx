@@ -6,6 +6,7 @@ import {
 import { ASSET_PREFIX } from '/web-config';
 
 import style from './home.scss';
+import Product from './product';
 
 const HomePage = () => {
   return (
@@ -17,30 +18,10 @@ const HomePage = () => {
         <div className={style.headerText}>Coffee</div>
       </Divider>
       <Row>
-        <Col span={12} className={style.column}>
-          <div className={style.productLeft}>
-            <img className={style.imgProduct} src={`${ASSET_PREFIX}/static/images/menu1.jpg`} alt="line-cafe" />
-            <Button className={style.button}>{'Select >'}</Button>
-          </div>
-        </Col>
-        <Col span={12} className={style.column}>
-          <div className={style.productRight}>
-            <img className={style.imgProduct} src={`${ASSET_PREFIX}/static/images/menu2.jpg`} alt="line-cafe" />
-            <Button className={style.button}>{'Select >'}</Button>
-          </div>
-        </Col>
-        <Col span={12} className={style.column}>
-          <div className={style.productLeft}>
-            <img className={style.imgProduct} src={`${ASSET_PREFIX}/static/images/menu3.jpg`} alt="line-cafe" />
-            <Button className={style.button}>{'Select >'}</Button>
-          </div>
-        </Col>
-        <Col span={12} className={style.column}>
-          <div className={style.productRight}>
-            <img className={style.imgProduct} src={`${ASSET_PREFIX}/static/images/menu4.jpg`} alt="line-cafe" />
-            <Button className={style.button}>{'Select >'}</Button>
-          </div>
-        </Col>
+        <Product image='menu1.jpg' />
+        <Product image='menu2.jpg' />
+        <Product image='menu3.jpg' />
+        <Product image='menu4.jpg' />
       </Row>
     </div>
   );
