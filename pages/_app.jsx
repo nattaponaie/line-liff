@@ -1,4 +1,4 @@
-import App, { Container } from 'next/app';
+import App from 'next/app';
 
 import Layout from '/components/Layout/Layout';
 
@@ -18,9 +18,7 @@ class MyApp extends App {
     return (
       <div className="App">
         <Layout {...pageProps}>
-          <Container>
-            <Component {...pageProps} />
-          </Container>
+          <Component {...pageProps} />
         </Layout>
       </div>
     );
