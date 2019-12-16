@@ -1,0 +1,42 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    "next/babel",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread",
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "style": true
+      }
+    ],
+    [
+      "module-resolver",
+      {
+        "root": ["./"],
+        "alias": {
+          "/__mocks": "./__mocks__",
+          "/__tests": "./__tests__",
+          "/components": "./components",
+          "/contexts": "./contexts",
+          "/pages": "./pages",
+          "/static": "./static",
+          "/style": "./styles",
+          "/utils": "./utils",
+          "/web-config": "./web-config"
+        }
+      }
+    ]
+  ]
+}

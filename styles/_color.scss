@@ -1,0 +1,18 @@
+// CI Guideline:
+//   Primary color will be mainly used.
+//   Shading colors are the alternative that can be used as needed.
+
+$primary-color: #00c300;
+
+// 50 Shades of Grey
+$color-pebble-grey: #696969;  // Primary text.
+$color-pebble-grey70: rgba(105, 105, 105, 0.7);  // Secondary text.
+$color-pebble-grey40: rgba(105, 105, 105, 0.4);  // Borders for users' inputs such as text field and selection choice; hint texts.
+$color-pebble-grey20: rgba(105, 105, 105, 0.2);  // Divider and borders.
+$color-dark-grey: #4A4A4A; // Body text.
+$color-warm-grey: #FAF9F7;  // Background.
+$color-warm-grey-shade1: #EDEAE4;  // Border of large elements.
+$color-warm-grey-shade2: #E3D9D6;  // Icons.
+$color-warm-grey-shade3: #948B88;  // Icons and Backgrounds.
+
+$color-white: #FFFFFF;

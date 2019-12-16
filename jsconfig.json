@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "/__mocks": ["./__mocks__"],
+      "/__tests": ["./__tests__"],
+      "/components": ["./components"],
+      "/contexts": ["./contexts"],
+      "/pages": ["./pages"],
+      "/static": ["./static"],
+      "/style": ["./styles"],
+      "/utils": ["./utils"],
+      "/web-config": ["./web-config"]
+    }
+  }
+}

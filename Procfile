@@ -1,0 +1,1 @@
+web: node .next/dist/index.js
