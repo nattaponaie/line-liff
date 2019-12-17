@@ -1,14 +1,25 @@
 import {
   Divider,
   Row,
+  Spin,
 } from 'antd';
+import { isEmpty } from 'lodash';
 
 import { ASSET_PREFIX } from '/web-config';
 
 import style from './home.scss';
+import { useHome } from './homeHooks';
 import Product from './product';
 
 const HomePage = () => {
+  const {
+    errorMessages,
+    allProductLoading,
+    allProduct,
+  } = useHome();
+  console.log('allProduct', allProduct);
+
+
   return (
     <div className={style.container}>
       <div className={style.logoContainer}>
@@ -17,12 +28,26 @@ const HomePage = () => {
       <Divider>
         <div className={style.headerText}>Coffee</div>
       </Divider>
+
       <Row>
+        {!isEmpty(allProduct) && allProduct.map(({
+          id,
+          name,
+          image,
+        }) => (
+          <Product
+            key={`${id}${name}`}
+            name={name}
+            image={image}
+          />
+        ))}
+      </Row>
+      {/* <Row>
         <Product image='menu1.jpg' />
         <Product image='menu2.jpg' />
         <Product image='menu3.jpg' />
         <Product image='menu4.jpg' />
-      </Row>
+      </Row> */}
     </div>
   );
 };

@@ -1,0 +1,1 @@
+ PGUSER=api PGPASSWORD=api heroku pg:push postgres://localhost/line-liff DATABASE_URL --app line-liff-challenge
