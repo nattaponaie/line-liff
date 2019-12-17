@@ -1,4 +1,6 @@
 import express from 'express';
+import validate from 'express-validation';
+import Joi from 'joi';
 import { get } from 'lodash';
 import multer from 'multer';
 
@@ -35,6 +37,24 @@ router.post(
     const productImage = get(req, 'file');
     const price = get(req.body, 'price');
     const result = await product.create({ productName, productImage, priceValue: price });
+    res.json(apiResponse({ resource, response: result }));
+  })
+);
+
+router.patch(
+  '/products/:id',
+  validate({
+    params: Joi.object().keys({
+      id: Joi.number().required(),
+    }),
+    body: Joi.object().keys({
+      statusName: Joi.string().required(),
+    }),
+  }),
+  asyncWrapper(async (req, res) => {
+    const { id } = req.params || {};
+    const statusName = get(req.body, 'statusName');
+    const result = await product.update({ statusName, productId: id });
     res.json(apiResponse({ resource, response: result }));
   })
 );

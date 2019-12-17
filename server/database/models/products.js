@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       field: 'price_id',
     },
+    status: DataTypes.INTEGER,
   }, {});
   products.associate = function(models) {
     // associations can be defined here
