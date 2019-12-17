@@ -14,7 +14,7 @@ import {
 } from './configs/server-config';
 import models from './database/models';
 
-const port = parseInt(PORT, 10) || 3000;
+const port = parseInt(PORT, 10);
 const dev = NODE_ENV === 'development';
 const app = nextjs({ dev });
 const handle = app.getRequestHandler();
