@@ -1,17 +1,21 @@
 import image from './image';
 import order from './order';
+import orderStatus from './order-status';
+import orderTransaction from './order-transaction';
 import price from './price';
 import product from './product';
+import productStatus from './product-status';
 import role from './role';
-import status from './status';
 import user from './user';
 
 export {
   product,
   role,
   user,
-  status,
+  orderStatus,
   order,
   price,
   image,
+  orderTransaction,
+  productStatus,
 };
