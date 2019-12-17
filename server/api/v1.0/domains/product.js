@@ -34,9 +34,18 @@ const update = async ({
   }, returning: true,
 });
 
+const findAll = async () => await models.products.findAll({
+  include: [
+    {
+      model: models.images,
+    },
+  ],
+});
+
 export default {
   create,
   findByName,
   findById,
   update,
+  findAll,
 };

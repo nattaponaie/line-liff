@@ -29,6 +29,14 @@ const resource = 'product';
  *         description: OK
  */
 
+router.get(
+  '/products',
+  asyncWrapper(async (_, res) => {
+    const result = await product.findAll();
+    res.json(apiResponse({ resource, response: result }));
+  })
+);
+
 router.post(
   '/products',
   upload.single('productImage'),

@@ -75,6 +75,8 @@ const update = async ({
   return productResult;
 };
 
+const findAll = async () => transformSequelizeModel(await product.findAll());
+
 export default {
   create,
   findByName,
@@ -82,4 +84,5 @@ export default {
   ERROR_CANNOT_FOUND_PRODUCT_ID,
   findById,
   update,
+  findAll,
 };
