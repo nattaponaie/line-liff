@@ -1,7 +1,16 @@
 import models from '/models';
 
-const findAll = async () => models.products.findAll();
+const create = async ({
+  name,
+  imageId,
+  priceId,
+  transaction,
+}) => await models.products.create({
+  name,
+  imageId,
+  priceId,
+}, { transaction });
 
 export default {
-  findAll,
+  create,
 };
