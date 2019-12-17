@@ -31,18 +31,14 @@ router.post(
   '/orders',
   validate({
     body: Joi.object().keys({
-      productName: Joi.string().required(),
-      productImage: Joi.string().required(),
-      price: Joi.number().required(),
+      productId: Joi.number().required(),
       userId: Joi.number().required(),
     }),
   }),
   asyncWrapper(async (req, res) => {
-    const productName = get(req.body, 'productName');
-    const productImage = get(req.body, 'productImage');
-    const price = get(req.body, 'price');
+    const productId = get(req.body, 'productId');
     const userId = get(req.body, 'userId');
-    const result = await order.create({ productName, productImage, price, userId });
+    const result = await order.create({ productId, userId });
     res.json(apiResponse({ resource, response: result }));
   })
 );
