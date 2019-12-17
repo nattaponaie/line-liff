@@ -1,6 +1,4 @@
-import {
- get, isEmpty,
-} from 'lodash';
+import { get } from 'lodash';
 import Sequelize from 'sequelize';
 
 import {
@@ -9,7 +7,6 @@ import {
 } from '/api/v1.0/business-logics';
 import { product } from '/api/v1.0/domains';
 import models from '/models';
-import { NotFoundError } from '/utils/error';
 import { base64Encode } from '/utils/image';
 import { transformSequelizeModel } from '/utils/json';
 
