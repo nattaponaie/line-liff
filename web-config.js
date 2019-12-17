@@ -4,8 +4,8 @@ export const {
   publicRuntimeConfig: {
     ASSET_PREFIX,
     API_PREFIX,
-    DEV_MODE,
     NODE_ENV,
     PORT,
+    AXIOS_TIMEOUT,
   },
 } = getConfig();

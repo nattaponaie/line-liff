@@ -51,5 +51,6 @@ module.exports = {
   publicRuntimeConfig: { // will be available on both server and client
     ASSET_PREFIX: process.env.ASSET_PREFIX || '',
     API_PREFIX: process.env.API_PREFIX || 'http://localhost:8080/api',
+    AXIOS_TIMEOUT: process.env.AXIOS_TIMEOUT || 50000,
   },
 };
