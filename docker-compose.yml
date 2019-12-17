@@ -14,6 +14,8 @@ services:
       - "./styles:/usr/src/app/styles"
       - "./utils:/usr/src/app/utils"
       - "./server:/usr/src/app/server"
+      - "./services:/usr/src/app/services"
+      - "./web-config:/usr/src/app/web-config"
       - ".env:/usr/src/app/.env"
     environment:
       DATABASE_URL: "line-liff-postgres"
@@ -25,12 +27,13 @@ services:
       SERVER_ENDPOINT_HOST: "localhost"
       SERVER_ENDPOINT_SCHEME: "http"
       NODE_ENV: "development"
-      PORT: 3002
+      PORT: 3000
       ASSET_PREFIX: ""
       API_PREFIX: "http://localhost:3000/api"
       SERVER_OPEN_SWAGGER: "true"
+      AXIOS_TIMEOUT: 50000
     ports:
-      - "3002:3000"
+      - "3000:3000"
     depends_on: 
       - line-liff-postgres
     networks:
