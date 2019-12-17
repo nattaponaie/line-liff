@@ -14,13 +14,23 @@ services:
       - "./styles:/usr/src/app/styles"
       - "./utils:/usr/src/app/utils"
       - "./server:/usr/src/app/server"
+      - ".env:/usr/src/app/.env"
     environment:
       DATABASE_URL: "line-liff-postgres"
       DATABASE_NAME: "line-liff"
       DATABASE_USERNAME: "api"
       DATABASE_PASSWORD: "api"
+      DATABASE_PORT: "5432"
+      DATABASE_DIALECT: "postgres"
+      SERVER_ENDPOINT_HOST: "localhost"
+      SERVER_ENDPOINT_SCHEME: "http"
+      NODE_ENV: "development"
+      PORT: 3002
+      ASSET_PREFIX: ""
+      API_PREFIX: "http://localhost:3000/api"
+      SERVER_OPEN_SWAGGER: "true"
     ports:
-      - "3000:3000"
+      - "3002:3000"
     depends_on: 
       - line-liff-postgres
     networks:
