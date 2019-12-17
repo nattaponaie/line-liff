@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       data: {
-        type: Sequelize.BLOB('tiny'),
+        type: Sequelize.BLOB('long'),
       },
       createdAt: {
         allowNull: false,
