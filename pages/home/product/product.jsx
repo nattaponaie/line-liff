@@ -3,7 +3,10 @@ import {
   Col,
 } from 'antd';
 import { get } from 'lodash';
-import { string } from 'prop-types';
+import {
+  shape,
+  string,
+} from 'prop-types';
 
 import style from './product.scss';
 
@@ -11,9 +14,7 @@ const Product = ({
   name,
   image,
 }) => {
-  const imageSrc = get(image, ['data', 'data']);
-  console.log('imageSrc', imageSrc);
-
+  let imageSrc = get(image, 'data');
   return (
     <Col span={12} className={style.column}>
       <div className={style.product}>
@@ -30,7 +31,7 @@ Product.getInitialProps = () => ({
 
 Product.propTypes = {
   name: string.isRequired,
-  image: string.isRequired,
+  image: shape({}).isRequired,
 };
 
 export default Product;
