@@ -9,6 +9,18 @@ const create = async ({
   productId,
 }, { transaction });
 
+const getAll = async () => await models.order_transactions.findAll({
+  include: [
+    {
+      model: models.orders,
+    },
+    {
+      model: models.products,
+    },
+  ],
+});
+
 export default {
   create,
+  getAll,
 };
