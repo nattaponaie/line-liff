@@ -52,7 +52,7 @@ const patchRequest = async ({
 }) => new Promise(async (resolve, reject) => {
   const url = createFullUrl({ version, path });
   const body = {
-    attributes,
+    ...attributes,
   };
 
   instance.patch(url, body)
