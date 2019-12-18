@@ -1,8 +1,14 @@
 
 module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define('users', {
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
+    lineUserId: {
+      type: DataTypes.STRING,
+      field: 'line_user_id',
+    },
+    displayName: {
+      type: DataTypes.STRING,
+      field: 'display_name',
+    },
     role: DataTypes.INTEGER,
   }, {});
   user.associate = function(models) {
