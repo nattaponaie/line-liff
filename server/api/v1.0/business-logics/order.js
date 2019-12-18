@@ -34,8 +34,8 @@ const create = async ({
     const statusId = get(orderStatusResult, 'status');
 
     let userResult = transformSequelizeModel(await user.findByUserId({ lineUserId }));
-    let userId;
-    if (isEmpty(userResult)) {
+    let userId = get(userResult, 'id');
+    if (!userId) {
       userResult = transformSequelizeModel(await user.create({
         lineUserId,
         displayName,
