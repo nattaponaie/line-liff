@@ -11,7 +11,7 @@ import { useResponseMessage } from '/utils/useResponseMessage';
 
 export const useHome = () => {
   const { responseMessages, appendResponseMessage } = useResponseMessage();
-  const [ productList, setProductList ] = useState([]);
+  const [ productList, setProductList ] = useState();
   const [ listening, setListening ] = useState(false);
 
   const [

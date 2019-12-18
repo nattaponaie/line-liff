@@ -3,7 +3,7 @@ import {
   Table,
 } from 'antd';
 import {
-  head, isEmpty,
+  head, isNil,
 } from 'lodash';
 
 import { STATUS_TYPE } from '/utils/constants/order-status';
@@ -69,7 +69,7 @@ const AdminPage = () => {
   return (
     <div>
       <Table
-        loading={isEmpty(orderTransactionList)}
+        loading={isNil(orderTransactionList)}
         columns={columns}
         dataSource={orderTransactionList}
       />

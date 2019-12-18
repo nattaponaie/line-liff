@@ -3,7 +3,9 @@ import {
   Row,
   Spin,
 } from 'antd';
-import { isEmpty } from 'lodash';
+import {
+  isEmpty, isNil,
+} from 'lodash';
 
 import style from './home.scss';
 import { useHome } from './homeHooks';
@@ -20,7 +22,7 @@ const HomePage = () => {
       <Divider>
         <div className={style.headerText}>Coffee</div>
       </Divider>
-      {isEmpty(productList) && <Spin />}
+      {isNil(productList) && <Spin />}
       {responseMessages && responseMessages}
       <Row>
         {!isEmpty(productList) && productList.map(({
