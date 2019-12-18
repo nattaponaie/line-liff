@@ -1,7 +1,6 @@
 
 module.exports = (sequelize, DataTypes) => {
   const orderTransactions = sequelize.define('order_transactions', {
-    quantity: DataTypes.INTEGER,
     orderId: {
       type: DataTypes.INTEGER,
       references: {
