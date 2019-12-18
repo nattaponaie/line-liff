@@ -1,5 +1,6 @@
 import {
-  get, isEmpty,
+  get, head,
+  isEmpty,
 } from 'lodash';
 import Sequelize from 'sequelize';
 
@@ -33,17 +34,13 @@ const create = async ({
     const orderStatusResult = transformSequelizeModel(await orderStatus.findByStatus({ statusName: 'new' }));
     const statusId = get(orderStatusResult, 'status');
 
-    let userResult = transformSequelizeModel(await user.findByUserId({ lineUserId }));
-    let userId = get(userResult, 'id');
-    if (!userId) {
-      userResult = transformSequelizeModel(await user.create({
-        lineUserId,
-        displayName,
-        roleName: 'user',
-        transaction,
-      }));
-      userId = get(userResult, 'id');
-    }
+    const userResult = head(transformSequelizeModel(await user.create({
+      lineUserId,
+      displayName,
+      roleName: 'user',
+      transaction,
+    })));
+    const userId = get(userResult, 'id');
     if (!userId) {
       throw new NotFoundError(user.ERROR_CANNOT_FOUND_USER);
     }
