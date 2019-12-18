@@ -20,7 +20,8 @@ import { transformSequelizeModel } from '/utils/json';
 
 const create = async ({
   productId,
-  userId,
+  lineUserId,
+  displayName,
 }) => {
   const transaction = await models.sequelize.transaction({
     autocommit: false,
@@ -32,8 +33,18 @@ const create = async ({
     const orderStatusResult = transformSequelizeModel(await orderStatus.findByStatus({ statusName: 'new' }));
     const statusId = get(orderStatusResult, 'status');
 
-    const userResult = transformSequelizeModel(await user.findByUserId({ userId }));
+    let userResult = transformSequelizeModel(await user.findByUserId({ lineUserId }));
+    let userId;
     if (isEmpty(userResult)) {
+      userResult = transformSequelizeModel(await user.create({
+        lineUserId,
+        displayName,
+        roleName: 'user',
+        transaction,
+      }));
+      userId = get(userResult, 'id');
+    }
+    if (!userId) {
       throw new NotFoundError(user.ERROR_CANNOT_FOUND_USER);
     }
 
