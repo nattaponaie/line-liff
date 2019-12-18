@@ -52,5 +52,7 @@ module.exports = {
     ASSET_PREFIX: process.env.ASSET_PREFIX || '',
     API_PREFIX: process.env.API_PREFIX || 'http://localhost:8080/api',
     AXIOS_TIMEOUT: process.env.AXIOS_TIMEOUT || 50000,
+    LIFF_ID: process.env.LIFF_ID || '1653655380-2GWbJ4NN',
+    SSE_GET_PRODUCT_EVENT: process.env.SSE_GET_PRODUCT_EVENT || 'get-all-products',
   },
 };

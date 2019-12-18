@@ -7,5 +7,7 @@ export const {
     NODE_ENV,
     PORT,
     AXIOS_TIMEOUT,
+    LIFF_ID,
+    SSE_GET_PRODUCT_EVENT,
   },
 } = getConfig();
