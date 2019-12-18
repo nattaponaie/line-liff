@@ -45,12 +45,12 @@ module.exports = {
     },
   })),
   serverRuntimeConfig: { // will only be available on the server side
-    NODE_ENV: process.env.NODE_ENV || 'development',
+    NODE_ENV: process.env.NODE_ENV || 'production',
     PORT: process.env.PORT || 3000,
   },
   publicRuntimeConfig: { // will be available on both server and client
     ASSET_PREFIX: process.env.ASSET_PREFIX || '',
-    API_PREFIX: process.env.API_PREFIX || 'http://localhost:8080/api',
+    API_PREFIX: process.env.API_PREFIX || 'https://line-liff-challenge.herokuapp.com/api',
     AXIOS_TIMEOUT: process.env.AXIOS_TIMEOUT || 50000,
     LIFF_ID: process.env.LIFF_ID || '1653655380-2GWbJ4NN',
     SSE_GET_PRODUCT_EVENT: process.env.SSE_GET_PRODUCT_EVENT || 'get-all-products',
