@@ -33,6 +33,14 @@ const resource = 'product';
 
 router.get(
   '/products',
+  asyncWrapper(async (_, res) => {
+    const result = await product.findAll();
+    res.json(apiResponse({ resource, response: result }));
+  })
+);
+
+router.get(
+  '/products/sse',
   asyncWrapper(async (req, res) => {
     res.writeHead(200, {
       Connection: 'keep-alive',
@@ -41,7 +49,7 @@ router.get(
     });
 
     let clients = [];
-    const clientId = Date.now();
+    const clientId = `${resource}:${Date.now()}`;
     const newClient = {
       id: clientId,
       res,
