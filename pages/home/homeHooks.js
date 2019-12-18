@@ -1,29 +1,37 @@
-import { useEffect } from 'react';
+import {
+  useEffect, useMemo,
+useState,
+} from 'react';
 
-import { getAllProduct } from '/services/product';
-import { useErrorMessage } from '/utils/useErrorMessage';
-import { useLoadingState } from '/utils/useLoadingState';
+import { getAllProductBySSE } from '/services/product';
+// import {
+//   getProfile,
+//   initializeLiff,
+// } from '/utils/liff';
+import { useResponseMessage } from '/utils/useResponseMessage';
 
 export const useHome = () => {
-  const { errorMessages, appendErrorMessage } = useErrorMessage();
-  const [
-    allProductLoading,
-    allProduct,
-    requestAllProductWrapper,
-  ] = useLoadingState(null);
+  const { responseMessages, appendResponseMessage } = useResponseMessage();
+  const [ productList, setProductList ] = useState([]);
+  const [ listening, setListening ] = useState(false);
+
+  // const liffApp = initializeLiff();
 
   useEffect(() => {
-    requestAllProductWrapper(async () => {
-      const result = await getAllProduct({ appendErrorMessage });
-      return result;
-    });
-  }, [appendErrorMessage, requestAllProductWrapper]);
+    if (!listening) {
+      try {
+        getAllProductBySSE({ setProductList });
+        setListening(true);
+      } catch (err) {
+        appendResponseMessage({ msg: `There is an error during get products ${err}` });
+      }
+    }
+  }, [appendResponseMessage, listening]);
 
-  return {
-    allProductLoading,
-    allProduct,
-    errorMessages,
-  };
+  return useMemo(() => ({
+    productList,
+    responseMessages,
+  }), [productList, responseMessages]);
 };
 
 export default () => {};

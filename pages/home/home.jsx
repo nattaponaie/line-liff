@@ -3,9 +3,7 @@ import {
   Row,
   Spin,
 } from 'antd';
-import {
- get, isEmpty,
-} from 'lodash';
+import { isEmpty } from 'lodash';
 
 import { ASSET_PREFIX } from '/web-config';
 
@@ -15,10 +13,10 @@ import Product from './product';
 
 const HomePage = () => {
   const {
-    errorMessages,
-    allProductLoading,
-    allProduct,
+    responseMessages,
+    productList,
   } = useHome();
+
   return (
     <div className={style.container}>
       <div className={style.logoContainer}>
@@ -27,10 +25,10 @@ const HomePage = () => {
       <Divider>
         <div className={style.headerText}>Coffee</div>
       </Divider>
-      {allProductLoading && <Spin />}
-      {errorMessages && errorMessages}
+      {isEmpty(productList) && <Spin />}
+      {responseMessages && responseMessages}
       <Row>
-        {!isEmpty(allProduct) && allProduct.map(({
+        {!isEmpty(productList) && productList.map(({
           id,
           name,
           image,
@@ -39,6 +37,7 @@ const HomePage = () => {
             key={`${id}${name}`}
             name={name}
             image={image}
+            productId={id}
           />
         ))}
       </Row>
