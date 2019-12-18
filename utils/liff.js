@@ -11,5 +11,5 @@ export const getProfile = async ({ liff }) => {
     liff.login({ redirectUri: SERVER_ENDPOINT_HOST });
     initializeLiff({ liff });
   }
-  await liff.getProfile();
+  return await liff.getProfile();
 };
