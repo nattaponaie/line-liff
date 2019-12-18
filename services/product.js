@@ -16,7 +16,7 @@ const getAllProduct = async () => {
 };
 
 const getAllProductBySSE = ({ setProductList }) => {
-  const sseUrl = `${API_PREFIX}/v1.0/products`;
+  const sseUrl = `${API_PREFIX}/v1.0/products/sse`;
   const eventSource = new EventSource(sseUrl);
   const eventName = SSE_GET_PRODUCT_EVENT;
 
