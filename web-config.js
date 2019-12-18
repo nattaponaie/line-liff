@@ -10,5 +10,6 @@ export const {
     LIFF_ID,
     SSE_GET_PRODUCT_EVENT,
     SSE_GET_ORDER_EVENT,
+    SERVER_ENDPOINT_HOST,
   },
 } = getConfig();
