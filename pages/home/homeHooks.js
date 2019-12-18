@@ -34,10 +34,12 @@ export const useHome = () => {
         const liff = window.liff;
         initializeLiff({ liff });
         const profile = await getProfile({ liff });
+        console.log('profile', profile);
+
         dispatch({
           type: 'info',
           userinfo: {
-            lineUserId: get(profile, 'lineUserId'),
+            lineUserId: get(profile, 'userId'),
             displayName: get(profile, 'displayName'),
             pictureUrl: get(profile, 'pictureUrl'),
           },
