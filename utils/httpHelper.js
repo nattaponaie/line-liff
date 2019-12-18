@@ -31,43 +31,38 @@ const getRequest = async ({
 });
 
 const postRequest = async ({
+  version,
   path,
-  service,
-  namespace,
   attributes,
 }) => new Promise(async (resolve, reject) => {
-  const url = createFullUrl({ path, service, namespace });
+  const url = createFullUrl({ version, path });
   const body = {
-    data: {
-      attributes,
-    },
+    ...attributes,
   };
 
   instance.post(url, body)
-    .then(response => resolve(response))
-    .catch(error => reject(new Error(`POST ${path} ${error.message}`)));
+    .then(response => resolve(get(response, ['data', 'attributes'])))
+    .catch(error => reject(error));
 });
 
-const putRequest = async ({
+const patchRequest = async ({
+  version,
   path,
-  service,
-  namespace,
   attributes,
 }) => new Promise(async (resolve, reject) => {
-  const url = createFullUrl({ path, service, namespace });
+  const url = createFullUrl({ version, path });
   const body = {
-    data: {
-      attributes,
-    },
+    attributes,
   };
 
-  instance.put(url, body)
-    .then(response => resolve(response))
-    .catch(error => reject(new Error(`PUT ${path} ${error.message}`)));
+  instance.patch(url, body)
+    .then(response => resolve(get(response, ['data', 'attributes'])))
+    .catch(error => reject(error));
 });
 
 export {
   getRequest,
   postRequest,
-  putRequest,
+  patchRequest,
+  createFullUrl,
 };
