@@ -1,9 +1,17 @@
-// import { LIFF_ID } from '/web-config';
+import { LIFF_ID } from '/web-config';
 
-// const liff = window.liff;
+export const initializeLiff = async ({
+  liff,
+}) => {
+  liff.init({
+    liffId: LIFF_ID,
+  }).then((response) => {
+    console.log('response', response);
 
-// export const initializeLiff = () => liff.init({
-//   config: { liffId: LIFF_ID },
-// });
+  }).catch((error) => {
+    console.log('initializeLiff Error', error);
+    Promise.reject(error);
+  });
+};
 
-// export const getProfile = async (liff) => await liff.getProfile();
+export const getProfile = async ({ liff }) => await liff.getProfile();
