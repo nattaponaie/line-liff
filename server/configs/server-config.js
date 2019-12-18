@@ -17,4 +17,5 @@ export const {
   SERVER_ENDPOINT_HOST = env.SERVER_ENDPOINT_HOST || 'localhost',
   SERVER_ENDPOINT_PORT = env.PORT,
   SERVER_ENDPOINT_SCHEME = env.SERVER_ENDPOINT_SCHEME || 'http',
+  SSE_GET_PRODUCT_EVENT = env.SSE_GET_PRODUCT_EVENT || 'get-all-products',
 } = env;
