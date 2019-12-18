@@ -5,11 +5,17 @@ const create = async ({
   displayName,
   role,
   transaction,
-}) => await models.users.create({
-  lineUserId,
-  displayName,
-  role,
-}, { transaction });
+}) => await models.users.findOrCreate({
+  where: {
+    lineUserId,
+  },
+  defaults: {
+    lineUserId,
+    displayName,
+    role,
+  },
+  transaction,
+});
 
 const findByUserId = async ({
   lineUserId,
