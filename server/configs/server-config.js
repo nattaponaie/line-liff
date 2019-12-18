@@ -7,7 +7,7 @@ const { env } = process;
 export const {
   PORT = env.PORT || 3000,
   NODE_ENV = env.NODE_ENV || 'production',
-  DATABASE_URL = env.DATABASE_URL || 'localhost',
+  DATABASE_HOST = env.DATABASE_HOST || 'localhost',
   DATABASE_NAME = env.DATABASE_NAME || 'line-liff',
   DATABASE_USERNAME = env.DATABASE_USERNAME || 'api',
   DATABASE_PASSWORD = env.DATABASE_PASSWORD || 'api',

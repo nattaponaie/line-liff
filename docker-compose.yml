@@ -18,7 +18,7 @@ services:
       - "./web-config:/usr/src/app/web-config"
       - ".env:/usr/src/app/.env"
     environment:
-      DATABASE_URL: "line-liff-postgres"
+      DATABASE_HOST: "line-liff-postgres"
       DATABASE_NAME: "line-liff"
       DATABASE_USERNAME: "api"
       DATABASE_PASSWORD: "api"
