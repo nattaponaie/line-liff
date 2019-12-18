@@ -3,7 +3,7 @@ module.exports = {
     type: Sequelize.INTEGER,
     allowNull: true,
     references: {
-      model: 'orders',
+      model: 'users',
       key: 'id',
     },
     field: 'user_id',
