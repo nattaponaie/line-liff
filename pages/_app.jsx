@@ -1,6 +1,7 @@
 import App from 'next/app';
 
 import Layout from '/components/Layout/Layout';
+import { UserContextProvider } from '/contexts/UserContext';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -17,9 +18,11 @@ class MyApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <div className="App">
-        <Layout {...pageProps}>
-          <Component {...pageProps} />
-        </Layout>
+        <UserContextProvider>
+          <Layout {...pageProps}>
+            <Component {...pageProps} />
+          </Layout>
+        </UserContextProvider>
       </div>
     );
   }
