@@ -1,6 +1,12 @@
 @import 'styles/color.scss';
 @import 'styles/responsive.scss';
 
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .headerText {
   font-size: 20px;
   color: gray;
