@@ -18,4 +18,5 @@ export const {
   SERVER_ENDPOINT_PORT = env.PORT,
   SERVER_ENDPOINT_SCHEME = env.SERVER_ENDPOINT_SCHEME || 'http',
   SSE_GET_PRODUCT_EVENT = env.SSE_GET_PRODUCT_EVENT || 'get-all-products',
+  SSE_GET_ORDER_EVENT = env.SSE_GET_ORDER_EVENT || 'get-all-orders',
 } = env;
