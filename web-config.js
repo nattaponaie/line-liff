@@ -4,8 +4,11 @@ export const {
   publicRuntimeConfig: {
     ASSET_PREFIX,
     API_PREFIX,
-    DEV_MODE,
     NODE_ENV,
     PORT,
+    AXIOS_TIMEOUT,
+    LIFF_ID,
+    SSE_GET_PRODUCT_EVENT,
+    SSE_GET_ORDER_EVENT,
   },
 } = getConfig();

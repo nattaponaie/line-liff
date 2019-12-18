@@ -42,12 +42,13 @@
     "quotes": ["error", "single", { "avoidEscape": true }],
     "react/jsx-filename-extension": "off",
     "react/react-in-jsx-scope": "off",
-    "react-hooks/rules-of-hooks": "error",
     "simple-import-sort/sort": "error",
     "semi": "error",
     "space-infix-ops": "error",
     "sort-imports": "off",
-    "import/no-dynamic-require": "off"
+    "import/no-dynamic-require": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   },
   "settings": {
     "import/resolver": {
@@ -64,7 +65,8 @@
         "/server-config": "./server/configs/server-config",
         "/api": "./server/api",
         "/middleware": "./server/api/middleware",
-        "/models": "./server/database/models"
+        "/models": "./server/database/models",
+        "/services": "./services"
       }
     }
   }

@@ -1,0 +1,11 @@
+@import 'styles/color.scss';
+@import 'styles/responsive.scss';
+
+.selectStatus {
+  width: 100px;
+}
+
+.submitBtn {
+  background: $primary-color;
+  color: white;
+}

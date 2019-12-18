@@ -14,11 +14,13 @@ body {
   justify-content: space-between;
 }
 
-.headerLeftItem {
-  float: left;
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.headerRightItem {
-  float: right;
-  padding-right: 1em;
+.imgLogo {
+  margin: 20px 0 10px 0;
+  height: 100px;
 }

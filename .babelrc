@@ -38,7 +38,8 @@
           "/server-config": "./server/configs/server-config",
           "/api": "./server/api",
           "/middleware": "./server/api/middleware",
-          "/models": "./server/database/models"
+          "/models": "./server/database/models",
+          "/services": "./services",
         }
       }
     ]

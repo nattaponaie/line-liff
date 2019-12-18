@@ -16,6 +16,12 @@
   @include mobile {
     padding: 0 2px 10px 0;
   }
+
+  .productName {
+    padding: 6px;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .imgProduct {
