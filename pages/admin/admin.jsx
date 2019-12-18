@@ -2,22 +2,29 @@ import {
   Select,
   Table,
 } from 'antd';
-import { head } from 'lodash';
+import {
+  head, isEmpty,
+} from 'lodash';
 
 import { STATUS_TYPE } from '/utils/constants/order-status';
 
 import style from './admin.scss';
-import { useAdmin } from './adminHooks';
+import {
+  useAdmin,
+  useAdminUpdate,
+} from './adminHooks';
 
 const { Option } = Select;
 
 const AdminPage = () => {
 
   const {
-    onStatusChange,
-    allOrderLoading,
-    allOrder,
+    orderTransactionList,
   } = useAdmin();
+
+  const {
+    onStatusChange,
+  } = useAdminUpdate();
 
   const columns = [
     {
@@ -62,9 +69,9 @@ const AdminPage = () => {
   return (
     <div>
       <Table
-        loading={allOrderLoading}
+        loading={isEmpty(orderTransactionList)}
         columns={columns}
-        dataSource={allOrder}
+        dataSource={orderTransactionList}
       />
     </div>
   );

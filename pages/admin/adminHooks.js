@@ -1,11 +1,13 @@
 import { message } from 'antd';
 import { get } from 'lodash';
 import {
-  useEffect, useMemo,
+  useEffect, useMemo, useState,
 } from 'react';
 
 import { updateOrderStatus } from '/services/order';
-import { getAllOrder } from '/services/order-transaction';
+import {
+  getAllOrder, getAllOrderBySSE,
+} from '/services/order-transaction';
 import { useLoadingState } from '/utils/useLoadingState';
 import { useResponseMessage } from '/utils/useResponseMessage';
 
@@ -25,40 +27,45 @@ export const onStatusChange = ({
   });
 };
 
+export const useAdminUpdate = () => {
+  const [
+    updateOrderStatusLoading,
+    updateOrderStatusResult,
+    updateOrderStatusWrapper,
+  ] = useLoadingState(null);
+
+  return useMemo(() => ({
+    updateOrderStatusLoading,
+    updateOrderStatusResult,
+    onStatusChange: (record) => onStatusChange({ record, updateOrderStatusWrapper }),
+  }), [updateOrderStatusLoading, updateOrderStatusResult, updateOrderStatusWrapper]);
+};
+
 export const useAdmin = () => {
   const { responseMessages, appendResponseMessage } = useResponseMessage();
-
-  const [
-    allOrderLoading,
-    allOrder,
-    getAllOrderWrapper,
-  ] = useLoadingState(null);
+  const [ listening, setListening ] = useState(false);
+  const [ orderTransactionList, setOrderTransactionList ] = useState([]);
 
   const [
     updateOrderStatusWrapper,
   ] = useLoadingState(null);
 
-  useEffect(() => {
-
-    getAllOrderWrapper(async () => {
+   useEffect(() => {
+    if (!listening) {
       try {
-        const result = await getAllOrder();
-        appendResponseMessage({ msg: 'success' });
-        return result;
+        setListening(true);
+        getAllOrderBySSE({ setOrderTransactionList, setListening });
       } catch (err) {
-        message.error(`There is an error during get order ${err}`);
-        appendResponseMessage({ msg: `There is an error during get order ${err}` });
+        appendResponseMessage({ msg: `There is an error during get all orders by using SSE ${err}` });
       }
-    });
-
-  }, [appendResponseMessage, getAllOrderWrapper]);
+    }
+  }, [appendResponseMessage, listening]);
 
   return useMemo(() => ({
-    allOrderLoading,
-    allOrder,
+    orderTransactionList,
     responseMessages,
     onStatusChange: (record) => onStatusChange({ record, updateOrderStatusWrapper }),
-  }), [allOrder, allOrderLoading, responseMessages, updateOrderStatusWrapper]);
+  }), [orderTransactionList, responseMessages, updateOrderStatusWrapper]);
 };
 
 export default () => {};
