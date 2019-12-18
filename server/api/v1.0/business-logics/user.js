@@ -11,14 +11,15 @@ const create = async ({
   lineUserId,
   displayName,
   roleName,
+  transaction,
 }) => {
   const roleResult = transformSequelizeModel(await role.findByRole({ roleName: roleName || 'user' }));
-  return await user.create({ lineUserId, displayName, role: roleResult.role });
+  return await user.create({ lineUserId, displayName, role: roleResult.role, transaction });
 };
 
 const findByUserId = async ({
-  userId,
-}) => await user.findByUserId({ userId });
+  lineUserId,
+}) => await user.findByUserId({ lineUserId });
 
 export default {
   create,

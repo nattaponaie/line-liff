@@ -32,13 +32,15 @@ router.post(
   validate({
     body: Joi.object().keys({
       productId: Joi.number().required(),
-      userId: Joi.number().required(),
+      lineUserId: Joi.string().required(),
+      displayName: Joi.string().required(),
     }),
   }),
   asyncWrapper(async (req, res) => {
     const productId = get(req.body, 'productId');
-    const userId = get(req.body, 'userId');
-    const result = await order.create({ productId, userId });
+    const lineUserId = get(req.body, 'lineUserId');
+    const displayName = get(req.body, 'displayName');
+    const result = await order.create({ productId, lineUserId, displayName });
     res.json(apiResponse({ resource, response: result }));
   })
 );

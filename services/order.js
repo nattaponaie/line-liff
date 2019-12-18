@@ -4,11 +4,13 @@ import {
 
 const postOrder = async ({
   productId,
+  lineUserId,
+  displayName,
 }) => {
   try {
     return await postRequest({
       path: 'orders',
-      attributes: { productId, userId: 1 },
+      attributes: { productId, lineUserId, displayName },
     });
   } catch (err) {
     throw err;
