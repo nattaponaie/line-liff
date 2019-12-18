@@ -9,6 +9,17 @@ const create = async ({
   userId,
 }, { transaction });
 
+const updateStatus = async ({
+  orderId,
+  statusId,
+}) => await models.orders.update({ status: statusId }, {
+  where: {
+    id: orderId,
+  },
+  returning: true,
+});
+
 export default {
   create,
+  updateStatus,
 };

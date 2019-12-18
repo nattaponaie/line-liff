@@ -43,4 +43,22 @@ router.post(
   })
 );
 
+router.patch(
+  '/orders/:id/status',
+  validate({
+    params: Joi.object().keys({
+      id: Joi.number().required(),
+    }),
+    body: Joi.object().keys({
+      status: Joi.string().required(),
+    }),
+  }),
+  asyncWrapper(async (req, res) => {
+    const { id } = req.params || {};
+    const status = get(req.body, 'status');
+    const result = await order.updateStatus({ orderId: id, status });
+    res.json(apiResponse({ resource, response: result }));
+  })
+);
+
 export default router;

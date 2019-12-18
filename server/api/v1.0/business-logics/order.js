@@ -11,7 +11,11 @@ import {
 } from '/api/v1.0/business-logics';
 import { order } from '/api/v1.0/domains';
 import models from '/models';
-import { NotFoundError } from '/utils/error';
+import { transformStatusName } from '/utils/constants/order-status';
+import {
+  InvalidError,
+  NotFoundError,
+} from '/utils/error';
 import { transformSequelizeModel } from '/utils/json';
 
 const create = async ({
@@ -51,6 +55,18 @@ const create = async ({
   }
 };
 
+const updateStatus = async ({
+  orderId,
+  status,
+}) => {
+  const statusId = transformStatusName(status);
+  if (statusId === -1) {
+    throw new InvalidError(orderStatus.ERRORS_STATUS_NOT_FOUND);
+  }
+  return await order.updateStatus({ orderId, statusId });
+};
+
 export default {
   create,
+  updateStatus,
 };
