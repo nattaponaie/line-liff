@@ -1,4 +1,6 @@
-import { postRequest } from '/utils/httpHelper';
+import {
+  patchRequest, postRequest,
+} from '/utils/httpHelper';
 
 const postOrder = async ({
   productId,
@@ -13,6 +15,21 @@ const postOrder = async ({
   }
 };
 
+const updateOrderStatus = async ({
+  orderId,
+  status,
+}) => {
+  try {
+    return await patchRequest({
+      path: `orders/${orderId}/status`,
+      attributes: { status },
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+
 export {
   postOrder,
+  updateOrderStatus,
 };
