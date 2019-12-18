@@ -31,16 +31,16 @@ router.post(
   '/users',
   validate({
     body: Joi.object().keys({
-      firstName: Joi.string().required(),
-      lastName: Joi.string().required(),
-      roleName: Joi.string().required(),
+      lineUserId: Joi.string().required(),
+      displayName: Joi.string().required(),
+      roleName: Joi.string(),
     }),
   }),
   asyncWrapper(async (req, res) => {
-    const firstName = get(req.body, 'firstName');
-    const lastName = get(req.body, 'lastName');
+    const lineUserId = get(req.body, 'lineUserId');
+    const displayName = get(req.body, 'displayName');
     const roleName = get(req.body, 'roleName');
-    const result = await user.create({ firstName, lastName, roleName });
+    const result = await user.create({ lineUserId, displayName, roleName });
     res.json(apiResponse({ resource, response: result }));
   })
 );

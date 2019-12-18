@@ -1,13 +1,15 @@
+import { message } from 'antd';
 import {
-  useEffect, useMemo,
-useState,
+  useEffect,
+  useMemo,
+  useState,
 } from 'react';
 
 import { getAllProductBySSE } from '/services/product';
-// import {
-//   getProfile,
-//   initializeLiff,
-// } from '/utils/liff';
+import {
+  getProfile, initializeLiff,
+} from '/utils/liff';
+import { useLoadingState } from '/utils/useLoadingState';
 import { useResponseMessage } from '/utils/useResponseMessage';
 
 export const useHome = () => {
@@ -15,9 +17,26 @@ export const useHome = () => {
   const [ productList, setProductList ] = useState();
   const [ listening, setListening ] = useState(false);
 
-  // const liffApp = initializeLiff();
+  const [
+    lineProfileLoading,
+    lineProfile,
+    lineProfileWrapper,
+  ] = useLoadingState(null);
 
   useEffect(() => {
+
+    lineProfileWrapper(async () => {
+      try {
+        const liff = window.liff;
+        initializeLiff({ liff });
+        const profile = await getProfile({ liff });
+        console.log('profile', profile);
+        return profile;
+      } catch (err) {
+        message.error(`There is an error during initialize LINE LIFF ${err}`);
+      }
+    });
+
     if (!listening) {
       try {
         getAllProductBySSE({ setProductList });
@@ -26,12 +45,13 @@ export const useHome = () => {
         appendResponseMessage({ msg: `There is an error during get products ${err}` });
       }
     }
-  }, [appendResponseMessage, listening]);
+  }, [appendResponseMessage, lineProfileWrapper, listening]);
 
   return useMemo(() => ({
+    lineProfile,
     productList,
     responseMessages,
-  }), [productList, responseMessages]);
+  }), [lineProfile, productList, responseMessages]);
 };
 
 export default () => {};

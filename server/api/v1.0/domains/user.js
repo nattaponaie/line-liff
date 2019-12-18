@@ -1,12 +1,12 @@
 import models from '/models';
 
 const create = async ({
-  firstName,
-  lastName,
+  lineUserId,
+  displayName,
   role,
 }) => await models.users.create({
-  firstName,
-  lastName,
+  lineUserId,
+  displayName,
   role,
 });
 

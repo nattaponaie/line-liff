@@ -8,11 +8,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      firstName: {
+      lineUserId: {
         type: Sequelize.STRING,
+        field: 'line_user_id',
       },
-      lastName: {
+      displayName: {
         type: Sequelize.STRING,
+        field: 'display_name',
       },
       role: {
         type: Sequelize.INTEGER,

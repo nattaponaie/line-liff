@@ -8,12 +8,12 @@ const ERROR_CANNOT_FOUND_USER = {
 };
 
 const create = async ({
-  firstName,
-  lastName,
+  lineUserId,
+  displayName,
   roleName,
 }) => {
-  const roleResult = transformSequelizeModel(await role.findByRole({ roleName }));
-  return await user.create({ firstName, lastName, role: roleResult.role });
+  const roleResult = transformSequelizeModel(await role.findByRole({ roleName: roleName || 'user' }));
+  return await user.create({ lineUserId, displayName, role: roleResult.role });
 };
 
 const findByUserId = async ({
