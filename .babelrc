@@ -39,7 +39,7 @@
           "/api": "./server/api",
           "/middleware": "./server/api/middleware",
           "/models": "./server/database/models",
-          "/services": "./services",
+          "/services": "./services"
         }
       }
     ]
