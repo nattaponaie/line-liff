@@ -5,8 +5,6 @@ import {
 } from 'antd';
 import { isEmpty } from 'lodash';
 
-import { ASSET_PREFIX } from '/web-config';
-
 import style from './home.scss';
 import { useHome } from './homeHooks';
 import Product from './product';
@@ -19,9 +17,6 @@ const HomePage = () => {
 
   return (
     <div className={style.container}>
-      <div className={style.logoContainer}>
-        <img className={style.imgLogo} src={`${ASSET_PREFIX}/static/images/line-cafe-logo.png`} alt="line-cafe" />
-      </div>
       <Divider>
         <div className={style.headerText}>Coffee</div>
       </Divider>
