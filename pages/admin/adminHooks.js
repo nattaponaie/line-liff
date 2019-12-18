@@ -5,9 +5,7 @@ import {
 } from 'react';
 
 import { updateOrderStatus } from '/services/order';
-import {
-  getAllOrder, getAllOrderBySSE,
-} from '/services/order-transaction';
+import { getAllOrderBySSE } from '/services/order-transaction';
 import { useLoadingState } from '/utils/useLoadingState';
 import { useResponseMessage } from '/utils/useResponseMessage';
 
@@ -44,7 +42,7 @@ export const useAdminUpdate = () => {
 export const useAdmin = () => {
   const { responseMessages, appendResponseMessage } = useResponseMessage();
   const [ listening, setListening ] = useState(false);
-  const [ orderTransactionList, setOrderTransactionList ] = useState([]);
+  const [ orderTransactionList, setOrderTransactionList ] = useState();
 
   const [
     updateOrderStatusWrapper,
