@@ -1,9 +1,9 @@
-import './Layout.scss';
-
 import Head from 'next/head';
 import { element } from 'prop-types';
 
 import { ASSET_PREFIX } from '/web-config';
+
+import style from './Layout.scss';
 
 const Layout = ({
   children,
@@ -30,7 +30,12 @@ const Layout = ({
       <header>
         <div className="header" />
       </header>
-      {children}
+      <>
+        <div className={style.logoContainer}>
+          <img className={style.imgLogo} src={`${ASSET_PREFIX}/static/images/line-cafe-logo.png`} alt="line-cafe" />
+        </div>
+        {children}
+      </>
       <footer>
         {/* {'Footer'} */}
       </footer>
