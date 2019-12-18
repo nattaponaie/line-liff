@@ -28,6 +28,9 @@ const Product = ({
     <Col span={12} className={style.column}>
       <div className={style.product}>
         <img className={style.imgProduct} src={imageSrc} alt={name} />
+        <div className={style.productName}>
+          {name}
+        </div>
         {createOrderLoading ? <Spin /> :
         (
           <Button
