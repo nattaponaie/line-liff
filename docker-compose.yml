@@ -17,6 +17,7 @@ services:
       - "./services:/usr/src/app/services"
       - "./web-config:/usr/src/app/web-config"
       - ".env:/usr/src/app/.env"
+      - "./contexts:/usr/src/app/contexts"
     environment:
       DATABASE_HOST: "line-liff-postgres"
       DATABASE_NAME: "line-liff"
