@@ -5,7 +5,7 @@ import { postOrder } from '/services/order';
 import { useLoadingState } from '/utils/useLoadingState';
 import { useResponseMessage } from '/utils/useResponseMessage';
 
-export const onPickupBtnClick = ({
+export const onProductClick = ({
   productId,
   createOrderWrapper,
   appendResponseMessage,
@@ -36,7 +36,7 @@ export const useProduct = ({ productId }) => {
     createOrderLoading,
     createOrder,
     responseMessages,
-    onProductClick: onPickupBtnClick({ productId, createOrderWrapper, appendResponseMessage }),
+    onProductClick: onProductClick({ productId, createOrderWrapper, appendResponseMessage }),
   }), [appendResponseMessage, createOrder, createOrderLoading, createOrderWrapper, responseMessages, productId]);
 };
 
