@@ -21,6 +21,7 @@ export const sendMessage = ({
   if (!liff.isInClient()) {
     message.success(message);
   } else {
+    message.success(message);
     liff.sendMessages([{
         'type': 'text',
         'text': message,
