@@ -13,5 +13,6 @@ export const {
     SSE_GET_ORDER_TRANSACTION_EVENT,
     SERVER_ENDPOINT_HOST,
     LINE_LIFF_ENABLE,
+    MOCK_LINE_ID,
   },
 } = getConfig();

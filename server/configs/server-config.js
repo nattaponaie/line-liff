@@ -21,4 +21,5 @@ export const {
   SSE_GET_ORDER_EVENT = env.SSE_GET_ORDER_EVENT || 'get-all-orders',
   SSE_GET_ORDER_TRANSACTION_EVENT = env.SSE_GET_ORDER_TRANSACTION_EVENT || 'get-all-order-transactions',
   LINE_LIFF_ENABLE = env.LINE_LIFF_ENABLE || true,
+  MOCK_LINE_ID = env.MOCK_LINE_ID || 'linemock123',
 } = env;

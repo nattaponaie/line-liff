@@ -58,5 +58,6 @@ module.exports = {
     SSE_GET_ORDER_EVENT: process.env.SSE_GET_ORDER_EVENT || 'get-all-orders',
     SERVER_ENDPOINT_HOST: process.env.SERVER_ENDPOINT_HOST || 'https://line-liff-challenge.herokuapp.com/',
     LINE_LIFF_ENABLE: process.env.LINE_LIFF_ENABLE || true,
+    MOCK_LINE_ID: process.env.MOCK_LINE_ID || 'linemock123',
   },
 };
