@@ -3,29 +3,33 @@ import {
   Row,
   Spin,
 } from 'antd';
-import {
-  isEmpty, isNil,
-} from 'lodash';
+import { isEmpty } from 'lodash';
 
 import style from './home.scss';
-import { useHome } from './homeHooks';
+import {
+  useHome, useHomeSSE,
+} from './homeHooks';
 import Product from './product';
 
 const HomePage = () => {
   const {
     responseMessages,
-    productList,
+    appendResponseMessage,
+    allProductLoading,
+    allProduct,
+    allProductWrapper,
   } = useHome();
+  useHomeSSE({ appendResponseMessage, allProductWrapper });
 
   return (
     <div className={style.container}>
       <Divider>
         <div className={style.headerText}>Coffee</div>
       </Divider>
-      {isNil(productList) && <Spin />}
+      {allProductLoading && <Spin />}
       {responseMessages && responseMessages}
       <Row>
-        {!isEmpty(productList) && productList.map(({
+        {!isEmpty(allProduct) && allProduct.map(({
           id,
           name,
           image,

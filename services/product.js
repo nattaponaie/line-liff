@@ -15,14 +15,14 @@ const getAllProduct = async () => {
   }
 };
 
-const getAllProductBySSE = ({ setProductList }) => {
+const getAllProductBySSE = ({ allProductWrapper }) => {
   const sseUrl = `${API_PREFIX}/v1.0/products/sse`;
   const eventSource = new EventSource(sseUrl);
   const eventName = SSE_GET_PRODUCT_EVENT;
 
   eventSource.addEventListener(eventName, (result) => {
     const data = get(JSON.parse(result.data), 'attributes');
-    setProductList(data);
+    allProductWrapper(() => data);
   });
 
   return eventSource;

@@ -5,7 +5,9 @@ import {
 } from 'react';
 
 import { updateOrderStatus } from '/services/order';
-import { getAllOrderBySSE } from '/services/order-transaction';
+import {
+  getAllOrder, getAllOrderBySSE,
+} from '/services/order-transaction';
 import { useLoadingState } from '/utils/useLoadingState';
 import { useResponseMessage } from '/utils/useResponseMessage';
 
@@ -41,29 +43,42 @@ export const useAdminUpdate = () => {
 
 export const useAdmin = () => {
   const { responseMessages, appendResponseMessage } = useResponseMessage();
-  const [ listening, setListening ] = useState(false);
-  const [ orderTransactionList, setOrderTransactionList ] = useState();
 
   const [
-    updateOrderStatusWrapper,
+    allOrderLoading,
+    allOrder,
+    allOrderWrapper,
   ] = useLoadingState(null);
 
    useEffect(() => {
-    if (!listening) {
+    allOrderWrapper(async () => {
       try {
-        setListening(true);
-        getAllOrderBySSE({ setOrderTransactionList, setListening });
+        return await getAllOrder();
       } catch (err) {
-        appendResponseMessage({ msg: `There is an error during get all orders by using SSE ${err}` });
+        appendResponseMessage({ msg: `There is an error during get all orders ${err}` });
       }
-    }
-  }, [appendResponseMessage, listening]);
+    });
+  }, [allOrderWrapper, appendResponseMessage]);
 
   return useMemo(() => ({
-    orderTransactionList,
+    allOrderLoading,
+    allOrder,
     responseMessages,
-    onStatusChange: (record) => onStatusChange({ record, updateOrderStatusWrapper }),
-  }), [orderTransactionList, responseMessages, updateOrderStatusWrapper]);
+    appendResponseMessage,
+    allOrderWrapper,
+  }), [allOrder, allOrderLoading, allOrderWrapper, appendResponseMessage, responseMessages]);
+};
+
+export const useAdminSSE = ({ appendResponseMessage, allOrderWrapper }) => {
+  const [ listening, setListening ] = useState(false);
+  if (!listening) {
+    try {
+      setListening(true);
+      getAllOrderBySSE({ allOrderWrapper });
+    } catch (err) {
+      appendResponseMessage({ msg: `There is an error during get all orders by using SSE ${err}` });
+    }
+  }
 };
 
 export default () => {};

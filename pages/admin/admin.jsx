@@ -2,15 +2,14 @@ import {
   Select,
   Table,
 } from 'antd';
-import {
-  head, isNil,
-} from 'lodash';
+import { head } from 'lodash';
 
 import { STATUS_TYPE } from '/utils/constants/order-status';
 
 import style from './admin.scss';
 import {
   useAdmin,
+  useAdminSSE,
   useAdminUpdate,
 } from './adminHooks';
 
@@ -19,8 +18,12 @@ const { Option } = Select;
 const AdminPage = () => {
 
   const {
-    orderTransactionList,
+    allOrderLoading,
+    allOrder,
+    appendResponseMessage,
+    allOrderWrapper,
   } = useAdmin();
+  useAdminSSE({ appendResponseMessage, allOrderWrapper });
 
   const {
     onStatusChange,
@@ -69,9 +72,9 @@ const AdminPage = () => {
   return (
     <div>
       <Table
-        loading={isNil(orderTransactionList)}
+        loading={allOrderLoading}
         columns={columns}
-        dataSource={orderTransactionList}
+        dataSource={allOrder}
       />
     </div>
   );
