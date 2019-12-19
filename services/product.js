@@ -24,8 +24,6 @@ const getAllProductBySSE = ({ allProductWrapper }) => {
     const data = get(JSON.parse(result.data), 'attributes');
     allProductWrapper(() => data);
   });
-
-  return eventSource;
 };
 
 export {
