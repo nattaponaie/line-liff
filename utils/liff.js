@@ -1,3 +1,5 @@
+import { message } from 'antd';
+
 import {
   LIFF_ID, SERVER_ENDPOINT_HOST,
 } from '/web-config';
@@ -16,15 +18,15 @@ export const getProfile = async ({ liff }) => {
 
 export const sendMessage = ({
   liff,
-  message,
+  msg,
 }) => {
   if (!liff.isInClient()) {
-    message.success(message);
+    message.success(msg);
   } else {
-    message.success(message);
+    message.success(msg);
     liff.sendMessages([{
         'type': 'text',
-        'text': message,
+        'text': msg,
     }]);
   }
 };

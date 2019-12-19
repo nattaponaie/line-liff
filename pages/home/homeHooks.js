@@ -114,7 +114,7 @@ export const servedProduct = ({ product }) => {
   const productName = get(product, 'name', 'none');
   const liff = window.liff;
   const message = `${productName} has been served`;
-  sendMessage({ liff, message });
+  sendMessage({ liff, msg: message });
 };
 
 export const validateServedOrder = ({
