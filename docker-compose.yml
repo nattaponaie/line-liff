@@ -61,7 +61,7 @@ services:
   unit-test:
     build: .
     image: line-liff/app-test
-    command: yarn unit-test
+    command: yarn test:watch
     volumes:
       - "./__mocks__:/usr/src/app/__mocks__"
       - "./__tests__:/usr/src/app/__tests__"
