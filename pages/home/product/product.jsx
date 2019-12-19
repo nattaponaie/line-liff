@@ -31,15 +31,13 @@ const Product = ({
         <div className={style.productName}>
           {name}
         </div>
-        {createOrderLoading ? <Spin /> :
-        (
-          <Button
-            className={style.button}
-            onClick={onProductClick}
-          >
-            {'Select >'}
-          </Button>
-        )}
+        <Button
+          className={style.button}
+          onClick={onProductClick}
+          loading={createOrderLoading}
+        >
+          {'Select >'}
+        </Button>
       </div>
     </Col>
   );
