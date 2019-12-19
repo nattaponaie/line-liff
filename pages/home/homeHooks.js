@@ -8,9 +8,12 @@ import {
 } from 'react';
 
 import { UserContext } from '/contexts/UserContext';
+import { updateOrderStatus } from '/services/order';
+import { getOrderByLineUserIdSSE } from '/services/order-transaction';
 import {
   getAllProduct, getAllProductBySSE,
 } from '/services/product';
+import { transformStatusId } from '/utils/constants/order-status';
 import {
   getProfile, initializeLiff,
 } from '/utils/liff';
@@ -92,6 +95,76 @@ export const useHomeSSE = ({ appendResponseMessage, allProductWrapper }) => {
       }
     }
   }, [allProductWrapper, appendResponseMessage, listening]);
+};
+
+export const servedProduct = ({ product }) => {
+  if (!product) return;
+  const productName = get(product, 'name', 'none');
+  message.success(`${productName} has been served`);
+};
+
+export const validateServedOrder = ({
+  servedOrder,
+  setServedOrder,
+  orderList,
+}) => {
+  orderList.forEach((item) => {
+    const order = get(item, 'order');
+    if (order) {
+      const statusName = transformStatusId(order.status);
+      if (statusName === 'served' && !servedOrder.find((item) => item.id === order.id)) {
+        const clone = [...servedOrder];
+        clone.push(order);
+        setServedOrder(clone);
+
+        servedProduct({ product: item.product });
+      }
+    }
+  });
+};
+
+export const useHomeOrderSSE = ({ appendResponseMessage }) => {
+  const [ listening, setListening ] = useState(false);
+  const [ userOrder, setUserOrder ] = useState([]);
+  const [ servedOrder, setServedOrder ] = useState([]);
+  const { state } = useContext(UserContext);
+
+  const [
+    requestUpdateOrderStatusLoading,
+    requestUpdateOrderStatus,
+    requestUpdateOrderStatusWrapper,
+  ] = useLoadingState(null);
+
+  useEffect(() => {
+    // if (LINE_LIFF_ENABLE === true && !listening && state.lineUserId) {
+    if (!listening) {
+      try {
+        getOrderByLineUserIdSSE({ lineUserId: state.lineUserId || 'wqewe2e25', appendResponseMessage, setUserOrder });
+        setListening(true);
+      } catch (err) {
+        message.error(`There is an error during get order SSE ${err}`);
+      }
+    }
+  }, [appendResponseMessage, listening, state.lineUserId]);
+
+  useEffect(() => {
+    validateServedOrder({ servedOrder, setServedOrder, orderList: userOrder });
+    Promise.all(servedOrder.map(async (order) => {
+      requestUpdateOrderStatusWrapper(async () => {
+        try {
+          const orderId = get(order, 'id');
+          const result = await updateOrderStatus({ orderId, status: 'received' });
+          return result;
+        } catch (err) {
+          message.error(`There is an error during updated order status ${err}`);
+        }
+      });
+    }));
+  }, [requestUpdateOrderStatusWrapper, servedOrder, userOrder]);
+
+  return useMemo(() => ({
+    userOrder,
+  }), [userOrder]);
 };
 
 export default () => {};
