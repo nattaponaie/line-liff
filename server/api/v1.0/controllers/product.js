@@ -8,7 +8,9 @@ import { product } from '/api/v1.0/business-logics';
 import asyncWrapper from '/middleware/async-wrapper';
 import { SSE_GET_PRODUCT_EVENT } from '/server-config';
 import { apiResponse } from '/utils/json';
-import { logInfo } from '/utils/logger';
+import {
+  closeSSEConnection, initializeSSE, sendSSEMessage,
+} from '/utils/sse';
 
 const router = express.Router();
 const upload = multer();
@@ -42,33 +44,42 @@ router.get(
 router.get(
   '/products/sse',
   asyncWrapper(async (req, res) => {
-    res.writeHead(200, {
-      Connection: 'keep-alive',
-      'Content-type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-    });
-
-    let clients = [];
     const clientId = `${resource}:${Date.now()}`;
-    const newClient = {
-      id: clientId,
-      res,
-    };
-    clients.push(newClient);
+    let clients = [initializeSSE({ res, resource, clientId })];
 
     const productInterval = setInterval(async () => {
-      const result = await product.findAll();
       const eventName = SSE_GET_PRODUCT_EVENT;
-      clients.forEach(c => {
-        c.res.write('event: ' + eventName + '\n');
-        c.res.write('data: ' + JSON.stringify(apiResponse({ resource, response: result })) + '\n\n');
-      });
+      try {
+        const result = await product.findAll();
+        sendSSEMessage({
+          clients,
+          eventName,
+          resource,
+          message: result,
+        });
+      } catch (err) {
+        sendSSEMessage({
+          clients,
+          eventName,
+          resource,
+          message: err,
+        });
+
+        closeSSEConnection({
+          clients,
+          clientId,
+        });
+        clearInterval(productInterval);
+        return err;
+      }
     }, 5000);
 
     req.on('close', () => {
       clearInterval(productInterval);
-      logInfo(`${clientId} Connection closed`);
-      clients = clients.filter(c => c.id !== clientId);
+      closeSSEConnection({
+        clients,
+        clientId,
+      });
     });
 
   })
