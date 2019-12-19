@@ -6,7 +6,9 @@ export const CustomError = (obj) => {
   } = obj;
   const error = new Error();
   return assign(error, {
-    message, status: status === 403 ? 400 : status, code, ...rest,
+    error: {
+      message, status: status === 403 ? 400 : status, code, ...rest,
+    },
   });
 };
 

@@ -8,6 +8,6 @@ export default (fn) => (req, res, next) => {
     const model = get(err, ['model']);
     const message = get(err, ['message']);
     res.status(status);
-    res.json({ status, model, message });
+    res.json({ error: { status, model, message } });
   });
 };
