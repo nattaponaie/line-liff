@@ -58,6 +58,25 @@ services:
       POSTGRES_DB: "line-liff"
     networks:
       - line-liff
+  unit-test:
+    build: .
+    image: line-liff/app-test
+    command: yarn unit-test
+    volumes:
+      - "./__mocks__:/usr/src/app/__mocks__"
+      - "./__tests__:/usr/src/app/__tests__"
+      - "./components:/usr/src/app/components"
+      - "./pages:/usr/src/app/pages"
+      - "./public:/usr/src/app/public"
+      - "./styles:/usr/src/app/styles"
+      - "./utils:/usr/src/app/utils"
+      - "./server:/usr/src/app/server"
+      - "./services:/usr/src/app/services"
+      - "./web-config:/usr/src/app/web-config"
+      - ".env:/usr/src/app/.env"
+      - "./contexts:/usr/src/app/contexts"
+    networks:
+      - line-liff
 volumes:
   line-liff-postgres-db:
   line-liff-node_modules:
