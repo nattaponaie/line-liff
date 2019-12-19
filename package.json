@@ -12,7 +12,7 @@
     "start": "node .next/dist/index.js",
     "test": "jest __tests__ --coverage --forceExit --detectOpenHandles",
     "test:watch": "jest __tests__ --watch --detectOpenHandles",
-    "lint": "eslint",
+    "lint": "eslint .",
     "lint:fix": "eslint --fix",
     "db:model:generate": "babel-node node_modules/.bin/sequelize model:generate --name",
     "db:migrate:generate": "babel-node node_modules/.bin/sequelize migration:generate --name",
