@@ -38,6 +38,7 @@ services:
       SSE_GET_ORDER_EVENT: 'get-all-orders'
       SSE_GET_ORDER_TRANSACTION_EVENT: 'get-all-order-transactions'
       LINE_LIFF_ENABLE: "false"
+      MOCK_LINE_ID: "linemock123"
     ports:
       - "3000:3000"
     depends_on: 
