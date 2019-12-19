@@ -17,7 +17,7 @@ const create = async ({
   transaction,
 });
 
-const findByUserId = async ({
+const findByLineUserId = async ({
   lineUserId,
 }) => await models.users.findOne({
   where: {
@@ -27,5 +27,5 @@ const findByUserId = async ({
 
 export default {
   create,
-  findByUserId,
+  findByLineUserId,
 };

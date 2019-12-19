@@ -17,12 +17,12 @@ const create = async ({
   return await user.create({ lineUserId, displayName, role: roleResult.role, transaction });
 };
 
-const findByUserId = async ({
+const findByLineUserId = async ({
   lineUserId,
-}) => await user.findByUserId({ lineUserId });
+}) => await user.findByLineUserId({ lineUserId });
 
 export default {
   create,
-  findByUserId,
+  findByLineUserId,
   ERROR_CANNOT_FOUND_USER,
 };
