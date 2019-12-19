@@ -1,10 +1,17 @@
 import express from 'express';
+import validate from 'express-validation';
+import Joi from 'joi';
 
 import { orderTransaction } from '/api/v1.0/business-logics';
 import asyncWrapper from '/middleware/async-wrapper';
-import { SSE_GET_ORDER_EVENT } from '/server-config';
+import {
+  SSE_GET_ORDER_EVENT,
+  SSE_GET_ORDER_TRANSACTION_EVENT,
+} from '/server-config';
 import { apiResponse } from '/utils/json';
-import { logInfo } from '/utils/logger';
+import {
+  closeSSEConnection, initializeSSE, sendSSEMessage,
+} from '/utils/sse';
 
 const router = express.Router();
 const resource = 'order-transactions';
@@ -37,33 +44,93 @@ router.get(
 router.get(
   '/order-transactions/sse',
   asyncWrapper(async (req, res) => {
-    res.writeHead(200, {
-      Connection: 'keep-alive',
-      'Content-type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-    });
-
-    let clients = [];
     const clientId = `${resource}:${Date.now()}`;
-    const newClient = {
-      id: clientId,
-      res,
-    };
-    clients.push(newClient);
+    let clients = [initializeSSE({ res, resource, clientId })];
 
-    const productInterval = setInterval(async () => {
-      const result = await orderTransaction.getAllOrderTransaction();
-      const eventName = SSE_GET_ORDER_EVENT;
-      clients.forEach(c => {
-        c.res.write('event: ' + eventName + '\n');
-        c.res.write('data: ' + JSON.stringify(apiResponse({ resource, response: result })) + '\n\n');
-      });
+    const orderTransactionInterval = setInterval(async () => {
+      const eventName = SSE_GET_ORDER_TRANSACTION_EVENT;
+      try {
+        const result = await orderTransaction.getAllOrderTransaction();
+        sendSSEMessage({
+          clients,
+          eventName,
+          resource,
+          message: result,
+        });
+      } catch (err) {
+        sendSSEMessage({
+          clients,
+          eventName,
+          resource,
+          message: err,
+        });
+
+        closeSSEConnection({
+          clients,
+          clientId,
+        });
+        clearInterval(orderTransactionInterval);
+        return err;
+      }
     }, 5000);
 
     req.on('close', () => {
-      clearInterval(productInterval);
-      logInfo(`${clientId} Connection closed`);
-      clients = clients.filter(c => c.id !== clientId);
+      clearInterval(orderTransactionInterval);
+      closeSSEConnection({
+        clients,
+        clientId,
+      });
+    });
+
+  })
+);
+
+router.get(
+  '/order-transactions/line-user-id/:id/sse',
+  validate({
+    params: Joi.object().keys({
+      id: Joi.string().required(),
+    }),
+  }),
+  asyncWrapper(async (req, res) => {
+
+    const clientId = `${resource}:${Date.now()}`;
+    let clients = [initializeSSE({ res, resource, clientId })];
+
+    const orderTransactionInterval = setInterval(async () => {
+      const eventName = SSE_GET_ORDER_EVENT;
+      try {
+        const { id } = req.params || {};
+        const result = await orderTransaction.getAllOrderByLineUserId({ lineUserId: id });
+        sendSSEMessage({
+          clients,
+          eventName,
+          resource,
+          message: result,
+        });
+      } catch (err) {
+        sendSSEMessage({
+          clients,
+          eventName,
+          resource,
+          message: err,
+        });
+
+        closeSSEConnection({
+          clients,
+          clientId,
+        });
+        clearInterval(orderTransactionInterval);
+        return err;
+      }
+    }, 5000);
+
+    req.on('close', () => {
+      clearInterval(orderTransactionInterval);
+      closeSSEConnection({
+        clients,
+        clientId,
+      });
     });
 
   })

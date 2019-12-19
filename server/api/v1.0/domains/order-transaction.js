@@ -20,7 +20,28 @@ const getAll = async () => await models.order_transactions.findAll({
   ],
 });
 
+const getAllOrderByLineUserId = async ({
+  lineUserId,
+}) => await models.order_transactions.findAll({
+  include: [
+    {
+      model: models.orders,
+      include: {
+        model: models.users,
+        as: 'orderUser',
+        where: {
+          lineUserId,
+        },
+      },
+    },
+    {
+      model: models.products,
+    },
+  ],
+});
+
 export default {
   create,
   getAll,
+  getAllOrderByLineUserId,
 };
