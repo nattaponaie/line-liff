@@ -1,6 +1,7 @@
 import {
   get, head,
   isEmpty,
+  isNil,
 } from 'lodash';
 import Sequelize from 'sequelize';
 
@@ -41,7 +42,7 @@ const create = async ({
       transaction,
     })));
     const userId = get(userResult, 'id');
-    if (!userId) {
+    if (isNil(userId)) {
       throw new NotFoundError(user.ERROR_CANNOT_FOUND_USER);
     }
 
