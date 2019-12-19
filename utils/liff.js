@@ -1,5 +1,3 @@
-import { message } from 'antd';
-
 import {
   LIFF_ID, SERVER_ENDPOINT_HOST,
 } from '/web-config';
