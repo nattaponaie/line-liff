@@ -4,6 +4,7 @@ import { transformStatusId } from '/utils/constants/order-status';
 import { getRequest } from '/utils/httpHelper';
 import {
   API_PREFIX, SSE_GET_ORDER_EVENT,
+  SSE_GET_ORDER_TRANSACTION_EVENT,
 } from '/web-config';
 
 const constructOrderTransaction = ({ list }) => list.map(({
@@ -33,7 +34,7 @@ const getAllOrder = async () => {
 const getAllOrderBySSE = ({ allOrderWrapper }) => {
   const sseUrl = `${API_PREFIX}/v1.0/order-transactions/sse`;
   const eventSource = new EventSource(sseUrl);
-  const eventName = SSE_GET_ORDER_EVENT;
+  const eventName = SSE_GET_ORDER_TRANSACTION_EVENT;
   eventSource.addEventListener(eventName, (result) => {
     const data = get(JSON.parse(result.data), 'attributes');
     const orderTransaction = constructOrderTransaction({ list: data });
@@ -41,7 +42,28 @@ const getAllOrderBySSE = ({ allOrderWrapper }) => {
   });
 };
 
+const getOrderByLineUserIdSSE = ({
+  lineUserId,
+  appendResponseMessage,
+  setUserOrder,
+}) => {
+  const sseUrl = `${API_PREFIX}/v1.0/order-transactions/line-user-id/${lineUserId}/sse`;
+  const eventSource = new EventSource(sseUrl);
+  const eventName = SSE_GET_ORDER_EVENT;
+  eventSource.addEventListener(eventName, (result) => {
+    const data = get(JSON.parse(result.data), 'attributes');
+    const error = get(data, 'error');
+    if (error) {
+      appendResponseMessage({ msg: `There is an error during get order by SSE ${error.message}` });
+      eventSource.close();
+    } else {
+      setUserOrder(data);
+    }
+  });
+};
+
 export {
   getAllOrder,
   getAllOrderBySSE,
+  getOrderByLineUserIdSSE,
 };
