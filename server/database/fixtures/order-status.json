@@ -14,5 +14,9 @@
   {
     "status": 3,
     "description": "removed"
+  },
+  {
+    "status": 4,
+    "description": "received"
   }
 ]

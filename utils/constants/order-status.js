@@ -1,6 +1,6 @@
 import { lowerCase } from 'lodash';
 
-export const STATUS_TYPE = ['new', 'preparing', 'served', 'removed'];
+export const STATUS_TYPE = ['new', 'preparing', 'served', 'removed', 'received'];
 
 const transformStatusName = (statusName) => {
   const statusId = STATUS_TYPE.indexOf(lowerCase(statusName));
