@@ -72,7 +72,7 @@ router.get(
         clearInterval(productInterval);
         return err;
       }
-    }, 5000);
+    }, 10000);
 
     req.on('close', () => {
       clearInterval(productInterval);

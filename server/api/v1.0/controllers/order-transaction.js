@@ -72,7 +72,7 @@ router.get(
         clearInterval(orderTransactionInterval);
         return err;
       }
-    }, 5000);
+    }, 10000);
 
     req.on('close', () => {
       clearInterval(orderTransactionInterval);
@@ -123,7 +123,7 @@ router.get(
         clearInterval(orderTransactionInterval);
         return err;
       }
-    }, 5000);
+    }, 10000);
 
     req.on('close', () => {
       clearInterval(orderTransactionInterval);
