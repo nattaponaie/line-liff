@@ -19,4 +19,5 @@ export const {
   SERVER_ENDPOINT_SCHEME = env.SERVER_ENDPOINT_SCHEME || 'https',
   SSE_GET_PRODUCT_EVENT = env.SSE_GET_PRODUCT_EVENT || 'get-all-products',
   SSE_GET_ORDER_EVENT = env.SSE_GET_ORDER_EVENT || 'get-all-orders',
+  LINE_LIFF_ENABLE = env.LINE_LIFF_ENABLE || true,
 } = env;
