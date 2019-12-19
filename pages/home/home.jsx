@@ -7,7 +7,9 @@ import { isEmpty } from 'lodash';
 
 import style from './home.scss';
 import {
-  useHome, useHomeSSE,
+  useHome,
+  useHomeOrderSSE,
+  useHomeSSE,
 } from './homeHooks';
 import Product from './product';
 
@@ -20,6 +22,7 @@ const HomePage = () => {
     allProductWrapper,
   } = useHome();
   useHomeSSE({ appendResponseMessage, allProductWrapper });
+  useHomeOrderSSE({ appendResponseMessage });
 
   return (
     <div className={style.container}>
@@ -27,7 +30,11 @@ const HomePage = () => {
         <div className={style.headerText}>Coffee</div>
       </Divider>
       {allProductLoading && <Spin />}
-      {responseMessages && responseMessages}
+      {!isEmpty(responseMessages) && (
+        <div className={style.responseText}>
+          {responseMessages}
+        </div>
+      )}
       <Row>
         {!isEmpty(allProduct) && allProduct.map(({
           id,
