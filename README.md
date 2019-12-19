@@ -60,12 +60,18 @@ Database Schema
 
 ## How it works?
 
+Step 0:
+- Add LINE Official account id ```bash@439qrswz```
+
+OR
+
+![Image description](https://github.com/nattaponaie/line-liff/blob/master/channel-qr-code.png)
+
 Step 1:
-- Visit https://line-liff-challenge.herokuapp.com/
-- Login using LINE account.
+- Visit LINE Channel OR https://line-liff-challenge.herokuapp.com/
 - [API]: User will be created with lineUserId and displayName.
 
-  [LOCAL]: Cannot login with LINE so it will use a mock lineUserId in .env
+  [LOCAL]: Cannot login with LINE so it will use a mock lineUserId instead from .env
 
 Step 2:
 - Click "Select" to order product.
@@ -74,21 +80,19 @@ Step 2:
 - Do not close the window.
 
 Step 3:
-- Visit https://line-liff-challenge.herokuapp.com/admin in another tab.
+- Visit https://line-liff-challenge.herokuapp.com/admin in another external browser.
 - [API]: Any incoming orders will be automatically displayed from backend without refreshing.
 
 Step 4:
-- On admin page, update status one of existing order to "Served"
+- On admin page, update status order to "Served"
 - [API]: Status will be updated as "Served".
 
 Step 5:
-- Look at the user tab, there will be a message sent to chat room.
+- Look at the LINE browser, there will be a message sent to chat room.
 - [API]: Status will be updated as "Received"
 
 Step 6:
 - Look at the admin tab, the order status will be changed to "Received" without refreshing page.
-
-![Image description](https://github.com/nattaponaie/line-liff/blob/master/channel-qr-code.png)
 
 
 ## API Documentation
