@@ -6,6 +6,7 @@ This is a LINE LIFF application that has been implemeted with NextJS.
 There are some endpoint that uses Server Sent Event methodology.
 
 
+
 ## Prerequisite
 
 ```bash
@@ -13,6 +14,8 @@ Docker
 Docker Compose
 Heroku (optional)
 ```
+
+
 
 ## Installation
 
@@ -31,6 +34,8 @@ git push heroku master
 
 PGUSER=api PGPASSWORD=api heroku pg:push postgres://localhost/line-liff DATABASE_URL --app line-liff-challenge
 ```
+
+
 
 ## Database
 
@@ -53,10 +58,14 @@ DATABASE_PASSWORD: "api"
 *NOTE*
 
 Database migration and seeder are executed automatically when container is up.
+But if it failed you could run ```yarn db:migrate, yarn db:seed:all``` outside Docker
+
 
 Database Schema
 
 ![Image description](https://github.com/nattaponaie/line-liff/blob/master/database-schema.png)
+
+
 
 ## How it works?
 
@@ -95,15 +104,20 @@ Step 6:
 - Look at the admin tab, the order status will be changed to "Received" without refreshing page.
 
 
+
 ## API Documentation
 
 https://documenter.getpostman.com/view/3924263/SWEDyEEB?version=latest
+
+
 
 ## Unit Testing
 
 ```bash
 docker-compose up unit-test
 ```
+
+
 
 ## Answer
 
