@@ -4,7 +4,7 @@ services:
   line-liff:
     build: .
     image: line-liff/app
-    command: yarn dev
+    entrypoint: ["/bin/bash", "./entrypoint.sh"]
     volumes:
       - "./__mocks__:/usr/src/app/__mocks__"
       - "./__tests__:/usr/src/app/__tests__"
