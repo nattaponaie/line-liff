@@ -54,6 +54,7 @@ module.exports = {
     AXIOS_TIMEOUT: process.env.AXIOS_TIMEOUT || 50000,
     LIFF_ID: process.env.LIFF_ID || '1653655380-2GWbJ4NN',
     SSE_GET_PRODUCT_EVENT: process.env.SSE_GET_PRODUCT_EVENT || 'get-all-products',
+    SSE_GET_ORDER_TRANSACTION_EVENT: process.env.SSE_GET_ORDER_TRANSACTION_EVENT || 'get-all-order-transactions',
     SSE_GET_ORDER_EVENT: process.env.SSE_GET_ORDER_EVENT || 'get-all-orders',
     SERVER_ENDPOINT_HOST: process.env.SERVER_ENDPOINT_HOST || 'https://line-liff-challenge.herokuapp.com/',
     LINE_LIFF_ENABLE: process.env.LINE_LIFF_ENABLE || true,
