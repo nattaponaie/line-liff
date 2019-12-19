@@ -15,11 +15,13 @@ import {
 } from '/services/product';
 import { transformStatusId } from '/utils/constants/order-status';
 import {
-  getProfile, initializeLiff,
+  getProfile, initializeLiff, sendMessage,
 } from '/utils/liff';
 import { useLoadingState } from '/utils/useLoadingState';
 import { useResponseMessage } from '/utils/useResponseMessage';
-import { LINE_LIFF_ENABLE } from '/web-config';
+import {
+  LINE_LIFF_ENABLE, MOCK_LINE_ID,
+} from '/web-config';
 
 export const useHome = () => {
   const { responseMessages, appendResponseMessage } = useResponseMessage();
@@ -59,6 +61,15 @@ export const useHome = () => {
           message.error(`There is an error during initialize LINE LIFF ${err}`);
         }
       });
+    } else {
+      dispatch({
+        type: 'info',
+        userinfo: {
+          lineUserId: MOCK_LINE_ID,
+          displayName: MOCK_LINE_ID,
+          pictureUrl: MOCK_LINE_ID,
+        },
+      });
     }
 
     allProductWrapper(async () => {
@@ -72,13 +83,14 @@ export const useHome = () => {
   }, [allProductWrapper, appendResponseMessage, dispatch, lineProfileWrapper]);
 
   return useMemo(() => ({
+    lineProfileLoading,
     lineProfile,
     allProductLoading,
     allProduct,
     allProductWrapper,
     responseMessages,
     appendResponseMessage,
-  }), [allProduct, allProductLoading, allProductWrapper, appendResponseMessage, lineProfile, responseMessages]);
+  }), [allProduct, allProductLoading, allProductWrapper, appendResponseMessage, lineProfile, lineProfileLoading, responseMessages]);
 };
 
 export const useHomeSSE = ({ appendResponseMessage, allProductWrapper }) => {
@@ -100,27 +112,40 @@ export const useHomeSSE = ({ appendResponseMessage, allProductWrapper }) => {
 export const servedProduct = ({ product }) => {
   if (!product) return;
   const productName = get(product, 'name', 'none');
-  message.success(`${productName} has been served`);
+  const liff = window.liff;
+  const message = `${productName} has been served`;
+  sendMessage({ liff, message });
 };
 
 export const validateServedOrder = ({
   servedOrder,
   setServedOrder,
   orderList,
+  requestUpdateOrderListWrapper,
 }) => {
-  orderList.forEach((item) => {
+  Promise.all(orderList.map(async (item) => {
     const order = get(item, 'order');
     if (order) {
-      const statusName = transformStatusId(order.status);
+      const statusName = transformStatusId(get(order, 'status'));
       if (statusName === 'served' && !servedOrder.find((item) => item.id === order.id)) {
         const clone = [...servedOrder];
         clone.push(order);
         setServedOrder(clone);
 
+        requestUpdateOrderListWrapper(async () => {
+          try {
+            const orderId = get(order, 'id');
+            const result = await updateOrderStatus({ orderId, status: 'received' });
+            return result;
+          } catch (err) {
+            message.error(`There is an error during updated order status ${err}`);
+          }
+        });
+
         servedProduct({ product: item.product });
       }
     }
-  });
+  }));
 };
 
 export const useHomeOrderSSE = ({ appendResponseMessage }) => {
@@ -130,16 +155,15 @@ export const useHomeOrderSSE = ({ appendResponseMessage }) => {
   const { state } = useContext(UserContext);
 
   const [
-    requestUpdateOrderStatusLoading,
-    requestUpdateOrderStatus,
-    requestUpdateOrderStatusWrapper,
+    requestUpdateOrderListLoading,
+    requestUpdateOrderList,
+    requestUpdateOrderListWrapper,
   ] = useLoadingState(null);
 
   useEffect(() => {
-    // if (LINE_LIFF_ENABLE === true && !listening && state.lineUserId) {
-    if (!listening) {
+    if (!listening && state.lineUserId) {
       try {
-        getOrderByLineUserIdSSE({ lineUserId: state.lineUserId || 'wqewe2e25', appendResponseMessage, setUserOrder });
+        getOrderByLineUserIdSSE({ lineUserId: state.lineUserId, appendResponseMessage, setUserOrder });
         setListening(true);
       } catch (err) {
         message.error(`There is an error during get order SSE ${err}`);
@@ -148,23 +172,19 @@ export const useHomeOrderSSE = ({ appendResponseMessage }) => {
   }, [appendResponseMessage, listening, state.lineUserId]);
 
   useEffect(() => {
-    validateServedOrder({ servedOrder, setServedOrder, orderList: userOrder });
-    Promise.all(servedOrder.map(async (order) => {
-      requestUpdateOrderStatusWrapper(async () => {
-        try {
-          const orderId = get(order, 'id');
-          const result = await updateOrderStatus({ orderId, status: 'received' });
-          return result;
-        } catch (err) {
-          message.error(`There is an error during updated order status ${err}`);
-        }
-      });
-    }));
-  }, [requestUpdateOrderStatusWrapper, servedOrder, userOrder]);
+    validateServedOrder({
+      servedOrder,
+      setServedOrder,
+      orderList: userOrder,
+      requestUpdateOrderListWrapper,
+    });
+  }, [requestUpdateOrderListWrapper, servedOrder, userOrder]);
 
   return useMemo(() => ({
+    requestUpdateOrderListLoading,
+    requestUpdateOrderList,
     userOrder,
-  }), [userOrder]);
+  }), [requestUpdateOrderList, requestUpdateOrderListLoading, userOrder]);
 };
 
 export default () => {};
