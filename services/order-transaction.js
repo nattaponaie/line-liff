@@ -1,7 +1,7 @@
 import { get } from 'lodash';
 
 import { transformStatusId } from '/utils/constants/order-status';
-import { getRequest } from '/utils/httpHelper';
+import { getRequest } from '/utils/http-helper';
 import {
   API_PREFIX, SSE_GET_ORDER_EVENT,
   SSE_GET_ORDER_TRANSACTION_EVENT,

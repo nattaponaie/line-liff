@@ -1,6 +1,6 @@
 import {
   patchRequest, postRequest,
-} from '/utils/httpHelper';
+} from '/utils/http-helper';
 
 const postOrder = async ({
   productId,

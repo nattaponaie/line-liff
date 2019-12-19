@@ -1,6 +1,6 @@
 import { get } from 'lodash';
 
-import { getRequest } from '/utils/httpHelper';
+import { getRequest } from '/utils/http-helper';
 import {
   API_PREFIX, SSE_GET_PRODUCT_EVENT,
 } from '/web-config';

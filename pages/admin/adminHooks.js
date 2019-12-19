@@ -8,8 +8,8 @@ import { updateOrderStatus } from '/services/order';
 import {
   getAllOrder, getAllOrderBySSE,
 } from '/services/order-transaction';
-import { useLoadingState } from '/utils/useLoadingState';
-import { useResponseMessage } from '/utils/useResponseMessage';
+import { useLoadingState } from '/utils/use-loading-state';
+import { useResponseMessage } from '/utils/use-response-message';
 
 export const onStatusChange = ({
   record,

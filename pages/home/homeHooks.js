@@ -17,8 +17,8 @@ import { transformStatusId } from '/utils/constants/order-status';
 import {
   getProfile, initializeLiff, sendMessage,
 } from '/utils/liff';
-import { useLoadingState } from '/utils/useLoadingState';
-import { useResponseMessage } from '/utils/useResponseMessage';
+import { useLoadingState } from '/utils/use-loading-state';
+import { useResponseMessage } from '/utils/use-response-message';
 import {
   LINE_LIFF_ENABLE, MOCK_LINE_ID,
 } from '/web-config';

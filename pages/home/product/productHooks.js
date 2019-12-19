@@ -6,8 +6,8 @@ import {
 
 import { UserContext } from '/contexts/UserContext';
 import { postOrder } from '/services/order';
-import { useLoadingState } from '/utils/useLoadingState';
-import { useResponseMessage } from '/utils/useResponseMessage';
+import { useLoadingState } from '/utils/use-loading-state';
+import { useResponseMessage } from '/utils/use-response-message';
 
 export const onProductClick = ({
   productId,
