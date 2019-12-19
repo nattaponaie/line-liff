@@ -2,3 +2,5 @@
 .cache
 docker-compose.yml
 node_modules
+channel-qr-code.png
+database-schema.png
