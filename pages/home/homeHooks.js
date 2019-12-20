@@ -25,7 +25,7 @@ import {
 
 export const useHome = () => {
   const { responseMessages, appendResponseMessage } = useResponseMessage();
-  const { dispatch } = useContext(UserContext);
+  const { dispatch, state } = useContext(UserContext);
 
   const [
     lineProfileLoading,
@@ -40,8 +40,7 @@ export const useHome = () => {
   ] = useLoadingState(null);
 
   useEffect(() => {
-
-    if (LINE_LIFF_ENABLE === true) {
+    if (LINE_LIFF_ENABLE === true && !state.lineUserId) {
       lineProfileWrapper(async () => {
         try {
           const liff = window.liff;
@@ -71,7 +70,9 @@ export const useHome = () => {
         },
       });
     }
+  }, [dispatch, lineProfileWrapper, state.lineUserId]);
 
+  useEffect(() => {
     allProductWrapper(async () => {
       try {
         return await getAllProduct();
@@ -80,7 +81,7 @@ export const useHome = () => {
       }
     });
 
-  }, [allProductWrapper, appendResponseMessage, dispatch, lineProfileWrapper]);
+  }, [allProductWrapper]);
 
   return useMemo(() => ({
     lineProfileLoading,
