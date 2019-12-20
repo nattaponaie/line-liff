@@ -25,7 +25,7 @@ import {
 
 export const useHome = () => {
   const { responseMessages, appendResponseMessage } = useResponseMessage();
-  const { dispatch, state } = useContext(UserContext);
+  const { dispatch } = useContext(UserContext);
 
   const [
     lineProfileLoading,
@@ -40,7 +40,7 @@ export const useHome = () => {
   ] = useLoadingState(null);
 
   useEffect(() => {
-    if (LINE_LIFF_ENABLE === true && !state.lineUserId) {
+    if (LINE_LIFF_ENABLE === true) {
       lineProfileWrapper(async () => {
         try {
           const liff = window.liff;
@@ -70,7 +70,7 @@ export const useHome = () => {
         },
       });
     }
-  }, [dispatch, lineProfileWrapper, state.lineUserId]);
+  }, [dispatch, lineProfileWrapper]);
 
   useEffect(() => {
     allProductWrapper(async () => {
