@@ -44,7 +44,7 @@ export const useHome = () => {
       lineProfileWrapper(async () => {
         try {
           const liff = window.liff;
-          initializeLiff({ liff });
+          await initializeLiff({ liff });
           const profile = await getProfile({ liff });
 
           dispatch({
