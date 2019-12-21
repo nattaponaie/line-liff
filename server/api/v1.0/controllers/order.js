@@ -10,23 +10,6 @@ import { apiResponse } from '/utils/json';
 const router = express.Router();
 const resource = 'order';
 
-/**
- * @swagger
- * /products:
- *   get:
- *     summary: "Find all products information"
- *     consumes:
- *       - "application/json"
- *     produces:
- *       - "application/json"
- *     tags:
- *       - "Product"
- *
- *     responses:
- *       200:
- *         description: OK
- */
-
 router.post(
   '/orders',
   validate({

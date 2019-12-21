@@ -16,23 +16,6 @@ import {
 const router = express.Router();
 const resource = 'order-transactions';
 
-/**
- * @swagger
- * /products:
- *   get:
- *     summary: "Find all products information"
- *     consumes:
- *       - "application/json"
- *     produces:
- *       - "application/json"
- *     tags:
- *       - "Product"
- *
- *     responses:
- *       200:
- *         description: OK
- */
-
 router.get(
   '/order-transactions',
   asyncWrapper(async (_, res) => {
