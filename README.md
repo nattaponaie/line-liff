@@ -70,7 +70,7 @@ Database Schema
 ## How it works?
 
 Step 0:
-- Add LINE Official account id ```bash@439qrswz```
+- Add LINE Official account id ```@439qrswz```
 
 OR
 
